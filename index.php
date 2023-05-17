@@ -10,6 +10,12 @@
 </head>
 
 <body>
+    <nav>
+        <ul>
+            <li><a href="./leverancier_toevoegen.php">Leverancier toevoegen</a></li>
+            <li><a href="./category_toevoegen.php">Category toevoegen</a></li>
+        </ul>
+    </nav>
     <?php
     require 'db-connection.php';
     ?>
