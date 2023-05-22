@@ -13,6 +13,7 @@
             <li><a href="./leverancier_toevoegen.php">Leverancier toevoegen</a></li>
             <li><a href="./category_toevoegen.php">Category toevoegen</a></li>
             <li><a href="./landen_toevoegen.php">Landen toevoegen</a></li>
+            <li><a href="./beheerder_toevoegen.php">Beheerder toevoegen</a></li>
         </ul>
     </nav> 
 <body>
