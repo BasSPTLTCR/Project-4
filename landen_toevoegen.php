@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $code = $_POST["code"];
 
-    $sql = "INSERT INTO country (name) VALUES (:name)";
+    $sql = "INSERT INTO country (name, code) VALUES (:name, :code)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':code', $code);
