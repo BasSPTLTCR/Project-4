@@ -25,7 +25,7 @@
         // Hier kun je de code toevoegen om de verbinding met de database te maken en de query uit te voeren
 
         $sql = "INSERT INTO product (productname, price, categoryid, supplierid)
-    VALUES (:productname, :priceFilter, :categoryid, :supplierid)";
+    VALUES (:productname, :price, :categoryid, :supplierid)";
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(':productname', $productname);
