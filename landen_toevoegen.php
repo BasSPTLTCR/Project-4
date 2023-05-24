@@ -15,6 +15,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $code = $_POST["code"];
 
+ // Prepare the query
+ $query = "SELECT COUNT(name) AS count_name FROM country WHERE name = :name";
+
+ // Prepare the statement
+ $statement = $conn->prepare($query);
+
+ // Bind the email parameter
+ $statement->bindParam(':name', $name);
+
+ // Execute the statement
+ $statement->execute();
+
+ // Fetch the result
+ $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+ // Access the value of 'count_email'
+ $countName = $result['count_name'];
+
+ if ($countName == 0) {
     $sql = "INSERT INTO country (name, code) VALUES (:name, :code)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':name', $name);
@@ -27,6 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Fout bij het toevoegen van het land: " . $e->getMessage();
     }
 }
+    else  {
+        echo "Er bestaat al een land met deze naam";
+}}
 ?>
 
 <form method="post">
