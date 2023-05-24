@@ -14,10 +14,10 @@
         <form action="" class="form-login">
             <ul class="login-nav">
                 <li class="login-nav__item active">
-                    <a href="#">Sign In</a>
+                    <a href="./login.php">Sign In</a>
                 </li>
                 <li class="login-nav__item">
-                    <a href="#">Sign Up</a>
+                    <a href="./signup.php">Sign Up</a>
                 </li>
             </ul>
             <label for="login-input-user" class="login__label">
