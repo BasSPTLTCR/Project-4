@@ -24,7 +24,6 @@
         $telephone = $_POST["telephone"];
         $website = $_POST["website"];
 
-        // Hier kun je de code toevoegen om de verbinding met de database te maken en de query uit te voeren
 
         $sql = "INSERT INTO supplier (company, adress, streetnr, zipcode, city, state, countryid, telephone, website)
     VALUES (:company, :adress, :streetnr, :zipcode, :city, :state, :countryid, :telephone, :website)";
