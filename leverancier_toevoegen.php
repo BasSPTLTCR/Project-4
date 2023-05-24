@@ -11,6 +11,7 @@
 
 <body>
     <?php
+    include_once "./includes/nav.html";
     require 'db-connection.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
