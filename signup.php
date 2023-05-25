@@ -53,8 +53,8 @@ if (ISSET($_POST["register"])) {
             $statement->bindParam(':email', $email);
 
             // Execute the statement
+            
             $statement->execute();
-
             // Fetch the result
             $result = $statement->fetch(PDO::FETCH_ASSOC);
 

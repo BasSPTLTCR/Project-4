@@ -357,3 +357,30 @@
 .login__forgot:hover {
   color: rgb(17, 97, 237);
 }
+
+/* muteer product */
+
+.prodmuteer {
+  border-collapse: collapse;
+  border: solid black 1px;
+}
+
+.prodmuteer tr {
+  border-bottom: solid black 1px;
+}
+
+.first {
+  width: 7rem;
+}
+
+.second {
+  width: 40rem;
+}
+
+.third {
+  width: 2rem;
+}
+
+.check {
+  padding-left: 3rem;
+}
