@@ -357,3 +357,13 @@
 .login__forgot:hover {
   color: rgb(17, 97, 237);
 }
+
+/* Footer */
+footer {
+  height: 10vh;
+  background-color: gray;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
