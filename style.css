@@ -358,6 +358,42 @@
   color: rgb(17, 97, 237);
 }
 
+/* muteer product */
+
+.prodmuteer {
+  border-collapse: collapse;
+  border: solid black 1px;
+}
+
+.prodmuteer tr {
+  border-bottom: solid black 1px;
+}
+
+.first {
+  width: 7rem;
+}
+
+.second {
+  width: 40rem;
+}
+
+.third {
+  width: 2rem;
+}
+
+.fourth {
+  width: 7rem;
+}
+
+.check {
+  padding-left: 2rem;
+}
+
+.submit{
+  display: flex;
+  justify-content: center;
+}
+
 /* Footer */
 footer {
   height: 10vh;
