@@ -393,3 +393,13 @@
   display: flex;
   justify-content: center;
 }
+
+/* Footer */
+footer {
+  height: 10vh;
+  background-color: gray;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
