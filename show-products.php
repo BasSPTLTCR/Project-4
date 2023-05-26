@@ -13,20 +13,20 @@
         ?>
 <?php
         
-            #1 verbinding database
+            // conection database
             require './db-connection.php';
             session_start();
             $_SESSION["customerSignedIn"] = 1;
             
 
-        // Alle producten ophalen met de bijbehorende gegevens
+        // Producten ophalen
         $query = $conn->prepare("SELECT product.*, category.name AS Category, supplier.company AS Supplier FROM product 
         INNER JOIN category ON category.id = product.categoryid 
         INNER JOIN supplier ON product.supplierid = supplier.id;");
         $query->execute();
         $resultq = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        // als er geen klanten aanwezig zijn, dan een foutboodschap
+        // foutboodschap
         if ($query->rowCount() == 0) {
             echo "<h2>Er zijn géén gegevens gevonden voor deze informatie. </h2>";
             die();
@@ -39,6 +39,9 @@
               <th>Category</th>
               <th>Supplier</th>
               <th>Prijs per product</th>";
+
+
+              // Dit hier onder testen als de inlog er is
         // if (isset($_SESSION["customerSignedIn"])) {
             echo "<th>Hoeveelheid</th>";
         // }
@@ -46,7 +49,8 @@
         // echo "<th>Inactief</th> </thead>";
         echo "<tbody>";
 
-        // Alle gegevens uit purchase op het scherm tonen
+
+        // scherm tonen
         foreach ($resultq as $data) {
             echo '<form action="" method="post">';
             echo "<tr>";
@@ -56,12 +60,14 @@
             echo "<td>" . $data["Supplier"] . "</td>";
             echo "<td> € " . $data["price"] . "</td>";
 
+
             // if (isset($_SESSION["customerSignedIn"])) {
                 echo '<td> <input type="number" name="number" id="number"></td>';
                 echo '<td> <input type="submit" name="add" value="add to cart"></td>';
             // } 
+
             
-            // Store the $data values in hidden input fields
+            // data opslaan
             echo '<input type="hidden" name="productid" value="' . $data["ID"] . '">';
             echo '<input type="hidden" name="productname" value="' . $data["productname"] . '">';
             echo '<input type="hidden" name="category" value="' . $data["Category"] . '">';
@@ -78,7 +84,7 @@
             if ($number < 0) {
                 echo "teweinig geselecteerd";
             } else {
-                // Retrieve the stored $data values
+                // ophalen 
                 $id = $_POST["productid"];
                 $productName = $_POST["productname"];
                 $category = $_POST["category"];
@@ -89,7 +95,7 @@
                 $date = date('Y-m-d', time());
                 $delivered = 1;
 
-                // Prepare the purchase insertion query
+                // invoeg query
                 try {
                     $fullQuery = $conn->prepare("INSERT INTO purchase (clientid, purchasedate, delivered) VALUES (:clientid, :purchasedate, :delivered)");
                 } catch (PDOException $e) {
@@ -97,21 +103,20 @@
                     die("Fout bij verbinden met database: " . $e->getMessage());
                 }
 
-                // Execute the purchase insertion query
+                // uitvoeren query
                 $fullQuery->execute([
                     ":clientid" => $_SESSION["customerSignedIn"],
                     ":purchasedate" => $date,
                     ":delivered" => $delivered
                 ]);
 
-                // Fetch the last inserted purchase ID
                 $purchaseId = $conn->lastInsertId();
 
-                // Prepare and execute the purchaseline insertion query
+                // invoeg query uitvoeren en voorbereiden
                 try {
                     $fullQuery2 = $conn->prepare("INSERT INTO purchaseline (purchaseid, productid, price, quantity) VALUES (:purchaseid, :productid, :price, :quantity)");
                 } catch (PDOException $e) {
-                    // if the Query can't run successfully, it will give an error message
+                    // error bericht
                     die("Fout bij verbinden met database: " . $e->getMessage());
                 }
 
