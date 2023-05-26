@@ -10,7 +10,9 @@
 </head>
 
 <body>
-
+<?php
+    include "./includes/nav.html";
+    ?>
 <?php 
 require 'db-connection.php';
 
