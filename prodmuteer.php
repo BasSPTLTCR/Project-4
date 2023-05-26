@@ -61,36 +61,46 @@
             </tr>
             <?php
                 foreach ($result1 as $rij) {
-                    if ($rij["active"] == "1") {  
-                        $active = "1";
-                        $activeValue = "Active";
-                    } else {
+                    if ($rij["active"] == "1") {
                         $active = "0";
+                        $activeValue = "Active";
+                    } else if ($rij["active"] == "0") {
+                        $active = "1";
                         $activeValue = "Inactive";
                     }
                     echo "<form method='post' class='muteer-prod'>";
-                    echo "<tr><td class='check'><input type='submit' name='activeToggle' value='".$activeValue."'></td>";
+                    echo "<tr><td class='check'><input class='submit' type='submit' name='activeToggle' value='".$activeValue."'></td>";
                     echo "<td>". $rij["productname"] ."</td>";
                     echo "<td>€". $rij["price"] ."</td>";
-                    // echo "<td><input class='submit' type=submit name=`submit` value='Pas toe'></td>";
+                    echo "<input type='hidden' name='productID' value='". $rij["ID"] ."'>";
                     echo "</tr></form>";
                 }
 
+                if (isset($_POST["activeToggle"])) {
+                    $productId = $_POST['productID'];
                 
-                
-                if (ISSET($_POST["activeToggle"])) {
-                    $activeToggle = $_POST["activeToggle"];
-                    if ($active == "1") {
-                        $active = "0";
-                    } else {
-                        $active = "1";
+                    if ($activeValue == "Active") {
+                        $newActiveValue = "0";
+                    } else if ($activeValue == "Inactive") {
+                        $newActiveValue = "1";
                     }
                 
-                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $sql = "INSERT INTO product (active) VALUES ('$active')";
-                    $conn->exec($sql);
-                } 
-        ?>
+                    $sql = "UPDATE product SET active = '$newActiveValue' WHERE ID = '$productId'";
+                
+                    try {
+                        $rowCount = $conn->exec($sql);
+                        echo "SQL Query: " . $sql . "<br>";
+                        echo "Number of affected rows: " . $rowCount . "<br>";
+                        if ($rowCount > 0) {
+                            echo "Product successfully updated.";
+                        } else {
+                            echo "No product found with the provided ID.";
+                        }
+                    } catch (PDOException $e) {
+                        echo "Error updating the product: " . $e->getMessage();
+                    }
+                }
+            ?>
         </table>
         
 
