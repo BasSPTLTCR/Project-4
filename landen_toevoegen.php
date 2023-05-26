@@ -25,52 +25,54 @@
             <form method="post">
                 <input type="hidden" name="name" value="<?php echo $_POST['name']; ?>">
 
-                <input type="hidden" name="code" value="<?php echo $_POST['name']; ?>">
+                <input type="hidden" name="code" value="<?php echo $_POST['code']; ?>">
 
                 <input type="hidden" nme="agreed" value="1" />
-                <input type="submit" value="JA">
+                <input type="submit" value="JA" name="JA">
                 <button value="NEE" onclick="javascript:history.go(-1);">NEE</button>
             </form>
 
             <?php
         } else {
-            $name = $_POST["name"];
-            $code = $_POST["code"];
+            if (isset($_POST['JA'])) {
+                $name = $_POST["name"];
+                $code = $_POST["code"];
 
-            // Prepare the query
-            $query = "SELECT name FROM country WHERE name = :name";
-            $query2 = "SELECT code FROM country WHERE code = :code";
+                // Prepare the query
+                $query = "SELECT name FROM country WHERE name = :name";
+                $query2 = "SELECT code FROM country WHERE code = :code";
 
-            // Prepare the statement
-            $statement = $conn->prepare($query);
-            $statement2 = $conn->prepare($query2);
+                // Prepare the statement
+                $statement = $conn->prepare($query);
+                $statement2 = $conn->prepare($query2);
 
-            // Bind the name and code parameter
-            $statement->bindParam(':name', $name);
-            $statement2->bindParam(':code', $code);
+                // Bind the name and code parameter
+                $statement->bindParam(':name', $name);
+                $statement2->bindParam(':code', $code);
 
-            // Execute the statement
-            $statement->execute();
-            $statement2->execute();
+                // Execute the statement
+                $statement->execute();
+                $statement2->execute();
 
-            if ($statement->RowCount() === 0) {
-                if ($statement2->RowCount() === 0) {
-                    $sql = "INSERT INTO country (name, code) VALUES (:name, :code)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':name', $name);
-                    $stmt->bindParam(':code', $code);
+                if ($statement->RowCount() === 0) {
+                    if ($statement2->RowCount() === 0) {
+                        $sql = "INSERT INTO country (name, code) VALUES (:name, :code)";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bindParam(':name', $name);
+                        $stmt->bindParam(':code', $code);
 
-                    try {
-                        $stmt->execute();
-                        echo "Land succesvol toegevoegd.";
-                    } catch (PDOException $e) {
-                        echo "Fout bij het toevoegen van het land: " . $e->getMessage();
+                        try {
+                            $stmt->execute();
+                            echo "Land succesvol toegevoegd.";
+                        } catch (PDOException $e) {
+                            echo "Fout bij het toevoegen van het land: " . $e->getMessage();
+                        }
+                    } else {
+                        echo "Er bestaat al een land met deze code.";
                     }
                 } else {
-                    echo "Er bestaat al een land met deze code.";
+                    echo "Er bestaat al een land met deze naam";
                 }
-            } else {
-                echo "Er bestaat al een land met deze naam";
             }
         }
     } else {
@@ -82,7 +84,7 @@
             <label>Code:</label>
             <input type="text" name="code" required><br>
 
-            <input type="submit" value="Landen toevoegen">
+            <input type="submit" name="agreed" value="Landen toevoegen">
         </form>
         <?php
 
