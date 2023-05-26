@@ -17,7 +17,7 @@
         
         // $email = "";
         // ^ dit als voorbeeld zonder inlog gegevens
-        // $email = "sem@piekar.nl";
+        $email = "sem@piekar.nl";
         // ^ deze is admin
         // $email = "csalzenbs@ehow.com";
         // ^ deze is geen admin
@@ -47,33 +47,52 @@
             die("Fout bij verbinden met de database: " . $e->getMessage());
         }
         $query->execute();
-
-        if ($query->RowCount() < 0)
-        $result1 = $query->FetchAll(PDO::FETCH_ASSOC);
-
-
-
-    ?>
-
-
-    <table class="prodmuteer">
-        <tr>
-            <th class="first">Active</th>
-            <th class="second">Naam</th>
-            <th class="third">Prijs</th>
-        </tr>
-        <?php
-    foreach ($query as $rij) {
-            echo "<form method='post' class='muteer-prod'>";
-            echo "<tr><td class='check'><input type='checkbox'></td>";
-            echo "<td>". $rij["productname"] ."</td>";
-            echo "<td>€". $rij["price"] ."</td></tr>";
-            echo "</form>";
-        }
         
-    ?>
-    </table>
+        $result1 = $query->fetchAll(PDO::FETCH_ASSOC);
+        
+        ?>
+        
+        <table class="prodmuteer">
+            <tr>
+                <th class="first">Active</th>
+                <th class="second">Naam</th>
+                <th class="third">Prijs</th>
+                <!-- <th class="fourth"></th> -->
+            </tr>
+            <?php
+                foreach ($result1 as $rij) {
+                    if ($rij["active"] == "1") {  
+                        $active = "1";
+                        $activeValue = "Active";
+                    } else {
+                        $active = "0";
+                        $activeValue = "Inactive";
+                    }
+                    echo "<form method='post' class='muteer-prod'>";
+                    echo "<tr><td class='check'><input type='submit' name='activeToggle' value='".$activeValue."'></td>";
+                    echo "<td>". $rij["productname"] ."</td>";
+                    echo "<td>€". $rij["price"] ."</td>";
+                    // echo "<td><input class='submit' type=submit name=`submit` value='Pas toe'></td>";
+                    echo "</tr></form>";
+                }
 
+                
+                
+                if (ISSET($_POST["activeToggle"])) {
+                    $activeToggle = $_POST["activeToggle"];
+                    if ($active == "1") {
+                        $active = "0";
+                    } else {
+                        $active = "1";
+                    }
+                
+                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $sql = "INSERT INTO product (active) VALUES ('$active')";
+                    $conn->exec($sql);
+                } 
+        ?>
+        </table>
+        
 
 
 </body>

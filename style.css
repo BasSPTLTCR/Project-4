@@ -381,6 +381,14 @@
   width: 2rem;
 }
 
+.fourth {
+  width: 7rem;
+}
+
 .check {
-  padding-left: 3rem;
+  padding-left: 2rem;
+}
+
+.submit{
+  margin-left: 2rem;
 }
