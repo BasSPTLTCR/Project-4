@@ -13,10 +13,12 @@
 
 <?php 
 require 'db-connection.php';
+include_once "./includes/nav.html";
+
 
     try {
         $oneQuery = $conn->prepare("SELECT name AS countryname FROM `country`;");
-    } catch(PDOExeption $e) {
+    } catch(PDOException $e) {
         die("Fout bij verbinden met de database: " . $e->getMessage());
     }
     $oneQuery->execute();
@@ -115,7 +117,6 @@ if (ISSET($_POST["register"])) {
 
         <input type="submit" value="Klant toevoegen" name="register">
     </form>
-
 
 </body>
 

@@ -16,7 +16,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $company = $_POST["company"];
-        $adress = $_POST["adress"];
+        $address = $_POST["address"];
         $streetnr = $_POST["streetnr"];
         $zipcode = $_POST["zipcode"];
         $city = $_POST["city"];
@@ -25,13 +25,24 @@
         $telephone = $_POST["telephone"];
         $website = $_POST["website"];
 
+        // Check if the supplier already exists
+        $checkSql = "SELECT COUNT(*) FROM supplier WHERE company = :company";
+        $checkStmt = $conn->prepare($checkSql);
+        $checkStmt->bindParam(':company', $company);
+        $checkStmt->execute();
+        $supplierCount = $checkStmt->fetchColumn();
 
-        $sql = "INSERT INTO supplier (company, adress, streetnr, zipcode, city, state, countryid, telephone, website)
-    VALUES (:company, :adress, :streetnr, :zipcode, :city, :state, :countryid, :telephone, :website)";
+        if ($supplierCount > 0) {
+            echo "Supplier already exists.";
+            exit; // Stop further execution
+        }
+
+        $sql = "INSERT INTO supplier (company, address, streetnr, zipcode, city, state, countryid, telephone, website)
+            VALUES (:company, :address, :streetnr, :zipcode, :city, :state, :countryid, :telephone, :website)";
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(':company', $company);
-        $stmt->bindParam(':adress', $adress);
+        $stmt->bindParam(':address', $address);
         $stmt->bindParam(':streetnr', $streetnr);
         $stmt->bindParam(':zipcode', $zipcode);
         $stmt->bindParam(':city', $city);
@@ -46,39 +57,59 @@
         } catch (PDOException $e) {
             echo "Fout bij het toevoegen van de Leverancier: " . $e->getMessage();
         }
-    }
+    } else {
+        // Fetch countries from the database
+        $countrySql = "SELECT idcountry, name FROM country";
+        $countryStmt = $conn->query($countrySql);
+        $countries = $countryStmt->fetchAll(PDO::FETCH_ASSOC);
     ?>
 
-    <form method="post">
-        <label>Bedrijfsnaam:</label>
-        <input type="text" name="company" required><br>
+        <form method="post" onsubmit="return confirmSubmission();">
+            <label>Bedrijfsnaam:</label>
+            <input type="text" name="company" required><br>
 
-        <label>Adres:</label>
-        <input type="text" name="adress" required><br>
+            <label>Adres:</label>
+            <input type="text" name="address" required><br>
 
-        <label>Huisnummer:</label>
-        <input type="text" name="streetnr" required><br>
+            <label>Huisnummer:</label>
+            <input type="text" name="streetnr" required><br>
 
-        <label>Postcode:</label>
-        <input type="text" name="zipcode" required><br>
+            <label>Postcode:</label>
+            <input type="text" name="zipcode" required><br>
 
-        <label>Plaats:</label>
-        <input type="text" name="city" required><br>
+            <label>Plaats:</label>
+            <input type="text" name="city" required><br>
 
-        <label>Provincie:</label>
-        <input type="text" name="state" required><br>
+            <label>Provincie:</label>
+            <input type="text" name="state" required><br>
 
-        <label>Land ID:</label>
-        <input type="text" name="countryid" required><br>
+            <label>Land:</label>
+            <select name="countryid" required>
+                <?php foreach ($countries as $country) : ?>
+                    <option value="<?= $country['idcountry'] ?>"><?= $country['name'] ?></option>
+                <?php endforeach; ?>
+            </select><br>
 
-        <label>Telefoonnummer:</label>
-        <input type="tel" name="telephone" required><br>
+            <label>Telefoonnummer:</label>
+            <input type="tel" name="telephone" required><br>
 
-        <label>Website:</label>
-        <input type="text" name="website" required><br>
+            <label>Website:</label>
+            <input type="text" name="website" required><br>
 
-        <input type="submit" value="Leverancier toevoegen">
-    </form>
+            <input type="submit" value="Leverancier toevoegen">
+        </form>
+
+        <script>
+            function confirmSubmission() {
+                return confirm("Weet u zeker dat u de leverancier wilt toevoegen?");
+            }
+        </script>
+    <?php } ?>
+
+
+
+
+
 
 </body>
 
