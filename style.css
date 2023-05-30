@@ -323,6 +323,26 @@
   margin: 0;
 }
 
+#register-input-country {
+  color: white;
+  font-size: 1.15rem;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 2px solid transparent;
+  outline: none;
+  border-radius: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.25);
+  letter-spacing: 1px;
+  margin-top: 1.5rem;
+}
+
+#register-input-country:hover,
+#register-input-country:focus {
+  color: black;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background-color: transparent;
+}
+
 .login__submit {
   color: #ffffff;
   font-size: 1rem;

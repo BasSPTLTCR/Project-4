@@ -12,8 +12,11 @@
 <body>
 
     <?php
+    include_once "./includes/nav.html";
+
     require 'db-connection.php';
 
+    
     function sanitizeInput($value)
     {
         // Sanitize user input
@@ -23,7 +26,7 @@
         $value = htmlspecialchars($value);
         return $value;
     }
-
+    
     if (isset($_POST["register"])) {
         $filteredFirstname = sanitizeInput($_POST["firstname"]);
         $filteredLastname = sanitizeInput($_POST["lastname"]);
@@ -36,45 +39,44 @@
         $filteredState = sanitizeInput($_POST["state"]);
         $filteredCountry = sanitizeInput($_POST["country"]);
         $filteredTelephone = sanitizeInput($_POST["telephone"]);
-
+        
         try {
             $hashedpw = password_hash($filteredPassword, PASSWORD_DEFAULT);
             $admin = "0";
-
+            
             // Prepare the query
             $query = "SELECT COUNT(email) AS count_email FROM client WHERE email = :filteredEmail";
-
+            
             // Prepare the statement
             $statement = $conn->prepare($query);
-
+            
             // Bind the email parameter
-            $statement->bindParam(':filteredEmail', $filteredEmail);
-
+            $statement->bindValue(':filteredEmail', $filteredEmail);
+            
             // Execute the statement
             $statement->execute();
-
+            
             // Fetch the result
             $countEmail = $statement->rowCount();
-
+            
             if ($countEmail >= 0) {
                 if ($filteredPassword == $filteredPasswordVeri) {
-                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     $sql = "INSERT INTO client (email, first_name, last_name, password, address, zipcode, city, state, country, telephone, admin)
                             VALUES (:filteredEmail, :filteredFirstname, :filteredLastname, :hashedpw, :filteredAddress, :filteredZipcode, :filteredCity, :filteredState, :filteredCountry, :filteredTelephone, :admin)";
                     $stmt = $conn->prepare($sql);
-                    $stmt->bindParam(':filteredEmail', $filteredEmail);
-                    $stmt->bindParam(':filteredFirstname', $filteredFirstname);
-                    $stmt->bindParam(':filteredLastname', $filteredLastname);
-                    $stmt->bindParam(':hashedpw', $hashedpw);
-                    $stmt->bindParam(':filteredAddress', $filteredAddress);
-                    $stmt->bindParam(':filteredZipcode', $filteredZipcode);
-                    $stmt->bindParam(':filteredCity', $filteredCity);
-                    $stmt->bindParam(':filteredState', $filteredState);
-                    $stmt->bindParam(':filteredCountry', $filteredCountry);
-                    $stmt->bindParam(':filteredTelephone', $filteredTelephone);
-                    $stmt->bindParam(':admin', $admin);
+                    $stmt->bindValue(':filteredEmail', $filteredEmail);
+                    $stmt->bindValue(':filteredFirstname', $filteredFirstname);
+                    $stmt->bindValue(':filteredLastname', $filteredLastname);
+                    $stmt->bindValue(':hashedpw', $hashedpw);
+                    $stmt->bindValue(':filteredAddress', $filteredAddress);
+                    $stmt->bindValue(':filteredZipcode', $filteredZipcode);
+                    $stmt->bindValue(':filteredCity', $filteredCity);
+                    $stmt->bindValue(':filteredState', $filteredState);
+                    $stmt->bindValue(':filteredCountry', $filteredCountry);
+                    $stmt->bindValue(':filteredTelephone', $filteredTelephone);
+                    $stmt->bindValue(':admin', $admin);
                     $stmt->execute();
-
+                    
                     echo "Gebruiker succesvol aangemaakt!";
                 } else {
                     echo "Wachtwoord klopt niet";
@@ -86,32 +88,82 @@
             echo "Fout bij verbinden met de database: " . $e->getMessage();
         }
     }
+
+    try {
+        $oneQuery = $conn->prepare("SELECT name AS 'countryname' FROM `country`;");
+    } catch(PDOException $e) {
+        die("Fout bij verbinden met de database: " . $e->getMessage());
+    }
+    $oneQuery->execute();
+    
+    $result1 = $oneQuery->fetchAll(PDO::FETCH_ASSOC);
+    
     ?>
 
-    <form method="post">
-        <input type="text" name="firstname" placeholder="Voornaam" required><br>
-        <input type="text" name="lastname" placeholder="Achternaam" required><br>
-        <input type="text" name="email" placeholder="Email" required><br>
-        <input type="password" name="password" placeholder="Wachtwoord" required><br>
-        <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
-        <input type="text" name="address" placeholder="Adres" required><br>
-        <input type="text" name="zipcode" placeholder="Postcode" required><br>
-        <input type="text" name="city" placeholder="Stad" required><br>
-        <input type="text" name="state" placeholder="Provincie/Staat" required><br>
-        <select name="country" id="countryname">
-            <option value="">--------------------------- Land ---------------------------</option>
-
-            <?php
-                    foreach($oneQuery as $rij) 
-                    {
-                        echo "<option>".$rij["countryname"]."</option>";
-                    }
-                ?>
-        </select><br>
-        <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
-
-        <input type="submit" value="Klant toevoegen" name="register">
+<div class="login-container">
+    <form action="" class="form-login" method="POST">
+      <ul class="login-nav">
+        <li class="login-nav__item active">
+          <a href="./login.php">Sign In</a>
+        </li>
+        <li class="login-nav__item">
+          <a href="./signup.php">Sign Up</a>
+        </li>
+      </ul>
+      <label for="register-input-firstname" class="login__label">
+        Voornaam
+      </label>
+      <input id="register-input-firstname" class="login__input" type="text" name="firstname" placeholder="Voornaam" required />
+      <label for="register-input-lastname" class="login__label">
+        Achternaam
+      </label>
+      <input id="register-input-lastname" class="login__input" type="text" name="lastname" placeholder="Achternaam" required />
+      <label for="register-input-email" class="login__label">
+        Email
+      </label>
+      <input id="register-input-email" class="login__input" type="email" name="email" placeholder="Email" required />
+      <label for="register-input-password" class="login__label">
+        Wachtwoord
+      </label>
+      <input id="register-input-password" class="login__input" type="password" name="password" placeholder="Wachtwoord" required />
+      <label for="register-input-password-verify" class="login__label">
+        Herhaal wachtwoord
+      </label>
+      <input id="register-input-password-verify" class="login__input" type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required />
+      <label for="register-input-address" class="login__label">
+        Adres
+      </label>
+      <input id="register-input-address" class="login__input" type="text" name="address" placeholder="Adres" required />
+      <label for="register-input-zipcode" class="login__label">
+        Postcode
+      </label>
+      <input id="register-input-zipcode" class="login__input" type="text" name="zipcode" placeholder="Postcode" required />
+      <label for="register-input-city" class="login__label">
+        Stad
+      </label>
+      <input id="register-input-city" class="login__input" type="text" name="city" placeholder="Stad" required />
+      <label for="register-input-state" class="login__label">
+        Provincie/Staat
+      </label>
+      <input id="register-input-state" class="login__input" type="text" name="state" placeholder="Provincie/Staat" required />
+      <label for="register-input-country" class="login__label">
+        Land
+      </label>
+      <select id="register-input-country" name="country" id="countryname">
+        <option value="">------------------- Land -------------------</option>
+        <?php
+          foreach($result1 as $rij) {
+            echo "<option>".$rij["countryname"]."</option>";
+          }
+        ?>
+      </select>
+      <label for="register-input-telephone" class="login__label">
+        Telefoon nummer
+      </label>
+      <input id="register-input-telephone" class="login__input" type="text" name="telephone" placeholder="Telefoon nummer" required />
+      <button class="login__submit" type="submit" name="register" value="Klant toevoegen">Sign Up</button>
     </form>
+  </div>
 
 
 </body>
