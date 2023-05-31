@@ -1,3 +1,4 @@
+
 <nav class="navmain">
     <ul>
         <li class="navlist">
@@ -67,10 +68,20 @@
                     <a href="#">Beheeerrechten</a>
                 </div>
             </div>
-            <div class="profileContainer">
-                <a class="login" href="./login.php">Sign up</a>
-                <img class="profile" src="./images/profile.png" alt="">
-            </div>
+            <?php
+                if (!isset($_SESSION['klant_id'])) {
+                    echo "<div class='profileContainer'>
+                    <a class='login' href='./login.php'>Sign up</a>
+                    <img class='profile' src='./images/profile.png' alt=''>
+                    </div>";
+                } else {
+                    echo "<div class='profileContainer'>
+                    <a class='login' href='#'>" . $_SESSION['klant_naam'] . "</a>
+                    <img class='profile' src='./images/profile.png' alt=''>
+                    </div>";
+                }
+            
+            ?>
         </li>
 
     </ul>

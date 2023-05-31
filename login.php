@@ -11,24 +11,27 @@
 
 <body class="loginBody">
     <?php
+    include_once "./includes/nav.php";
+
     // Databaseconfiguratie
     $host = 'localhost';
     $dbname = 'befs';
     $user = 'root';
     $password = '';
 
-    session_start();
+    // Controleer of er geen klant is ingelogd
+    if (isset($_SESSION['klant_id'])) {
+        echo "Er is al een klant ingelogd.";
+        return;
+    } else {
+        session_start();
+    }
+
 
     // Functie om in te loggen als klant
     function loginAlsKlant($email, $wachtwoord)
     {
         global $host, $dbname, $user, $password;
-
-        // Controleer of er geen klant is ingelogd
-        if (isset($_SESSION['klant_id'])) {
-            echo "Er is al een klant ingelogd.";
-            return;
-        }
 
         try {
             // Maak een verbinding met de database met behulp van PDO
@@ -49,12 +52,15 @@
                 // Zet de SESSION-variabelen voor een ingelogde klant
                 $_SESSION['klant_id'] = $klant['id'];
                 $_SESSION['klant_email'] = $klant['email'];
+                $_SESSION['klant_naam'] = $klant['first_name'];
+                $_SESSION['admin'] = $klant['admin'];
                 // ... voeg andere gewenste SESSION-variabelen toe
 
                 // Geef een melding dat het inloggen is geslaagd
                 echo "Inloggen is gelukt!";
 
-                // Keer terug naar de home-pagina met het menu van de klant actief
+                // Keer terug naar de home-pagina met het menu van de klant actief;
+                sleep(3);
                 header("Location: index.php");
                 exit();
             } else {

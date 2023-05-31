@@ -10,7 +10,8 @@
 </head>
 <body>
     <?php
-    include_once "./includes/nav.html";
+    session_start();
+    include_once "./includes/nav.php";
     ?>
     <main class="indexhome">
         <div class="indextext">

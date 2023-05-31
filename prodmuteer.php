@@ -11,43 +11,40 @@
 
 <body>
     <?php
-        include_once "./includes/nav.html";
+        session_start();
+
+        if ($_SESSION['admin'] == 1) {
+            $email = $_SESSION['klant_email'];
+            echo "Welkom ".$_SESSION['klant_naam']."";
+        } else {
+            // header('location: index.php');
+            // exit();
+            echo "Je bent niet ingelogt!";
+        }
+
+
+        include_once "./includes/nav.php";
         
         require 'db-connection.php';
-        
+
+
         // $email = "";
         // ^ dit als voorbeeld zonder inlog gegevens
-        $email = "sem@piekar.nl";
+        // $email = "sem@piekar.nl";
         // ^ deze is admin
         // $email = "csalzenbs@ehow.com";
         // ^ deze is geen admin
         
 
-        $client = $conn->prepare("SELECT * FROM `client` WHERE email = :email;");
-        $client->bindValue(':email', $email);
-        $client->execute();
-        
-        $result = $client->fetchAll(PDO::FETCH_ASSOC);
-        
-        if (!empty($result)) {
-            $adminCheck = $result[0]['admin'];
-            if ($adminCheck == "0") {
-                header('location: index.php');
-                exit();
-            } else {
-                echo "<br> You are an admin signed in as " . $result[0]["first_name"];
-            }
-        } else {
-            header('location: index.php');
-            exit();
-        }
+
+
 
         if (isset($_POST["active"])) {
-            $productId = $_POST["active"];
-            
-            $query = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
-            $query->bindValue(':productId', $productId);
-            $query->execute();
+            // $productId = $_POST["active"];
+            session_abort();
+            // $query = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
+            // $query->bindValue(':productId', $productId);
+            // $query->execute();
         }
         
         if (isset($_POST["inactive"])) {
