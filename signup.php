@@ -99,83 +99,31 @@
     $result1 = $oneQuery->fetchAll(PDO::FETCH_ASSOC);
     
     ?>
-    
-    <div class="register-container">
-        <form action="" class="form-register" method="POST">
-            <ul class="register-nav">
-                <li class="register-nav__item active">
-                    <a href="./login.php">Registreren</a>
-                </li>
-                <li class="register-nav__item">
-                    <a href="./signup.php">Aanmelden</a>
-                </li>
-            </ul>
-            <label for="register-input-firstname" class="register__label">
-                Voornaam
-            </label>
-            <input id="register-input-firstname" class="register__input" type="text" name="firstname"
-                placeholder="Voornaam" required />
-            <label for="register-input-lastname" class="register__label">
-                Achternaam
-            </label>
-            <input id="register-input-lastname" class="register__input" type="text" name="lastname"
-                placeholder="Achternaam" required />
-            <label for="register-input-email" class="register__label">
-                E-mail
-            </label>
-            <input id="register-input-email" class="register__input" type="email" name="email" placeholder="E-mail"
-                required />
-            <label for="register-input-password" class="register__label">
-                Wachtwoord
-            </label>
-            <input id="register-input-password" class="register__input" type="password" name="password"
-                placeholder="Wachtwoord" required />
-            <label for="register-input-password-verify" class="register__label">
-                Bevestig Wachtwoord
-            </label>
-            <input id="register-input-password-verify" class="register__input" type="password" name="passwordVerify"
-                placeholder="Bevestig Wachtwoord" required />
-            <label for="register-input-address" class="register__label">
-                Adres
-            </label>
-            <input id="register-input-address" class="register__input" type="text" name="address" placeholder="Adres"
-                required />
-            <label for="register-input-zipcode" class="register__label">
-                Postcode
-            </label>
-            <input id="register-input-zipcode" class="register__input" type="text" name="zipcode" placeholder="Postcode"
-                required />
-            <label for="register-input-city" class="register__label">
-                Stad
-            </label>
-            <input id="register-input-city" class="register__input" type="text" name="city" placeholder="Stad"
-                required />
-            <label for="register-input-state" class="register__label">
-                Provincie
-            </label>
-            <input id="register-input-state" class="register__input" type="text" name="state" placeholder="Provincie"
-                required />
-            <label for="register-input-country" class="register__label">
-                Land
-            </label>
-            <select id="register-input-country" name="country" id="countryname">
-                <option value="">------------------- Land -------------------</option>
+
+
+    <form method="post">
+            <input type="text" name="firstname" placeholder="Voornaam" required><br>
+            <input type="text" name="lastname" placeholder="Achternaam" required><br>
+            <input type="text" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Wachtwoord" required><br>
+            <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
+            <input type="text" name="address" placeholder="Adres" required><br>
+            <input type="text" name="zipcode" placeholder="Postcode" required><br>
+            <input type="text" name="city" placeholder="Stad" required><br>
+            <input type="text" name="state" placeholder="Provincie/Staat" required><br>
+            <select name="country" id="countryname">
+                <option value="">Land</option>
                 <?php
-          foreach($result1 as $rij) {
-            echo "<option>".$rij["countryname"]."</option>";
-          }
-        ?>
-            </select>
-            <label for="register-input-telephone" class="register__label">
-                Telefoonnummer
-            </label>
-            <input id="register-input-telephone" class="register__input" type="text" name="telephone"
-                placeholder="Telefoonnummer" required />
-            <button class="register__submit" type="submit" name="register" value="Klant toevoegen">Registreer</button>
-        </form>
-    </div>
+                    foreach($result1 as $rij) 
+                    {
+                        echo "<option>".$rij["countryname"]."</option>";
+                    }
+                ?>
+            </select><br>
+            <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
 
-
+            <input type="submit" value="Klant toevoegen" name="register">
+    </form>
 
 </body>
 
