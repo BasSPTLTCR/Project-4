@@ -11,6 +11,8 @@
 
 <body class="loginBody">
     <?php
+    include_once "./includes/nav.html";
+
     // Databaseconfiguratie
     $host = 'localhost';
     $dbname = 'befs';
@@ -49,7 +51,6 @@
                 // Zet de SESSION-variabelen voor een ingelogde klant
                 $_SESSION['klant_id'] = $klant['id'];
                 $_SESSION['klant_email'] = $klant['email'];
-                // ... voeg andere gewenste SESSION-variabelen toe
 
                 // Geef een melding dat het inloggen is geslaagd
                 echo "Inloggen is gelukt!";
@@ -77,34 +78,11 @@
     }
     ?>
 
-    <div class="login-container">
-        <form action="" class="form-login" method="POST">
-            <ul class="login-nav">
-                <li class="login-nav__item active">
-                    <a href="#">Sign In</a>
-                </li>
-                <li class="login-nav__item">
-                    <a href="#">Sign Up</a>
-                </li>
-            </ul>
-            <label for="login-input-email" class="login__label">
-                Email
-            </label>
-            <input id="login-input-email" class="login__input" type="email" name="email" required />
-            <label for="login-input-password" class="login__label">
-                Password
-            </label>
-            <input id="login-input-password" class="login__input" type="password" name="wachtwoord" required />
-            <label for="login-sign-up" class="login__label--checkbox">
-                <input id="login-sign-up" type="checkbox" class="login__input--checkbox" />
-                Keep me Signed in
-            </label>
-            <button class="login__submit" type="submit" value="Inloggen">Sign in</button>
-        </form>
-        <a href="#" class="login__forgot">Forgot Password?</a>
-    </div>
-
-
+    <form action="" method="POST">
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="wachtwoord" placeholder="Password" required />
+        <button type="submit" value="Inloggen">Sign in</button>
+    </form>
 
 </body>
 
