@@ -11,6 +11,7 @@
 
 <body class="loginBody">
     <?php
+    ob_start();
     session_start();
 
     include_once "./includes/nav.php";
@@ -55,11 +56,13 @@
                 $_SESSION['klant_lname'] = $klant['last_name'];
                 $_SESSION['admin'] = $klant['admin'];
 
+
+                
                 // Geef een melding dat het inloggen is geslaagd
+                header("Location:index.php");
                 echo "Inloggen is gelukt!";
 
                 // Keer terug naar de home-pagina met het menu van de klant actief
-                header("Location: index.php");
                 exit();
             } else {
                 // Inloggen mislukt
