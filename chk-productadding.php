@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php
-    include "./includes/nav.html";
+    include "./includes/nav.php";
     ?>
     <?php
     

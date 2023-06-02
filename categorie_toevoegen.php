@@ -10,24 +10,23 @@
 </head>
 
 <body>
-<?php
-include_once "./includes/nav.html";
-require 'db-connection.php';
+    <?php
+    include_once "./includes/nav.html";
+    require 'db-connection.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["name"];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = $_POST["name"];
 
-    // Controleren of de categorie al bestaat in de database
-    $checkSql = "SELECT COUNT(*) FROM category WHERE name = :name";
-    $checkStmt = $conn->prepare($checkSql);
-    $checkStmt->bindParam(':name', $name);
-    $checkStmt->execute();
-    $categoryCount = $checkStmt->fetchColumn();
+        // Controleren of de categorie al bestaat in de database
+        $checkSql = "SELECT COUNT(*) FROM category WHERE name = :name";
+        $checkStmt = $conn->prepare($checkSql);
+        $checkStmt->bindParam(':name', $name);
+        $checkStmt->execute();
+        $categoryCount = $checkStmt->fetchColumn();
 
-    if ($categoryCount > 0) {
-        echo "Deze categorie bestaat al in de database.";
-    } else {
-        if (isset($_POST["confirm"]) && $_POST["confirm"] == "Ja") {
+        if ($categoryCount > 0) {
+            echo "Deze categorie bestaat al in de database.";
+        } else {
             $sql = "INSERT INTO category (name) VALUES (:name)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':name', $name);
@@ -38,28 +37,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } catch (PDOException $e) {
                 echo "Fout bij het toevoegen van de categorie: " . $e->getMessage();
             }
-        } elseif (isset($_POST["confirm"]) && $_POST["confirm"] == "Nee") {
-            echo "Categorie toevoegen geannuleerd.";
-        } else {
-            // Gebruiker om bevestiging vragen
-            echo "Weet je zeker dat je de volgende categorie wilt toevoegen: " . $name . "?";
-            echo "<br>";
-            echo '<form method="post">';
-            echo '<input type="hidden" name="name" value="' . $name . '">';
-            echo '<input type="submit" name="confirm" value="Ja">';
-            echo '<input type="submit" name="confirm" value="Nee">';
-            echo '</form>';
         }
     }
-}
-?>
+    ?>
 
-<form method="post">
-    <label>Naam:</label>
-    <input type="text" name="name" required><br>
+    <form method="post" onsubmit="return confirmSubmission()">
+        <label>Naam:</label>
+        <input type="text" name="name" required><br>
 
-    <input type="submit" value="Categorie toevoegen">
-</form>
+        <input type="submit" value="Categorie toevoegen">
+    </form>
+
+    <script>
+        function confirmSubmission() {
+            return confirm("Weet u zeker dat u de leverancier wilt toevoegen?");
+        }
+    </script>
 
 
 

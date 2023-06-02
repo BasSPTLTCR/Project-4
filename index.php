@@ -10,7 +10,7 @@
 </head>
 <body>
     <?php
-    include_once "./includes/nav.html";
+    include_once "./includes/nav.php";
     ?>
     <main class="indexhome">
         <div class="indextext">

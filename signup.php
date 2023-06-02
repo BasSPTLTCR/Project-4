@@ -13,7 +13,7 @@
 
 <?php 
 require 'db-connection.php';
-include_once "./includes/nav.html";
+include_once "./includes/nav.php";
 
 
     try {

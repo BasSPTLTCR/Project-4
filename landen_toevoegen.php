@@ -11,7 +11,7 @@
 
 <body>
 <?php
-    include "./includes/nav.html";
+    include "./includes/nav.php";
     ?>
     <?php
     require 'db-connection.php';
