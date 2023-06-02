@@ -209,9 +209,23 @@
 /* Footer */
 footer {
   height: 10vh;
-  background-color: gray;
+  background-color: rgb(46, 46, 46);
+  color: rgb(100, 100, 100)
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Eco Vriendelijkheid */
+
+.ecoHeader, .levHeader {
+  width: 50vw;
+  margin-left: 2rem;
+}
+
+.ecoText, .levText {
+  width: 50vw;
+  margin-left: 2rem;
+  margin-top: 1rem;
 }

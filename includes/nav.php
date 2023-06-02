@@ -5,8 +5,8 @@
             <div class="dropdown">
                 <button class="dropbtn">Over ons</button>
                 <div class="dropdown-content">
-                    <a href="#">Eco vriendelijk</a>
-                    <a href="#">Levering en retour</a>
+                    <a href="./eco_vriendelijkheid.php">Eco vriendelijk</a>
+                    <a href="./levering_retour.php">Levering en retour</a>
                     <a href="#">Medewerkers</a>
                     <a href="#">Doelstelling</a>
                     <a href="#">Geschiedenis</a>
@@ -72,18 +72,21 @@
             </div>
             <div class="profileContainer">
                 <?php
+                error_reporting(0);  // Disable error reporting
+                ini_set('display_errors', 0);  // Do not display errors
                 session_start();
                 if (!isset($_SESSION["klant_id"]) && !isset($_SESSION["klant_email"])) {
                     echo '<a class="login" href="./login.php">Sign In</a>';
 
                     echo '<a class="login" href="./signup.php">Sign up</a>';
                 } else {
-                    echo '<p class="login">' . $_SESSION["klant_email"] . '</p>';
+                    echo '<p class="login">' . $_SESSION["klant_fname"] . "     " . $_SESSION["klant_lname"] . '</p>';
                     echo '<a class="login" href="./logout.php">Log out</a>';
                 }
 
                 ?>
                 <img class="profile" src="./images/profile.png" alt="">
+
             </div>
         </li>
 
