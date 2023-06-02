@@ -11,7 +11,7 @@
 
 <body class="loginBody">
     <?php
-    include_once "./includes/nav.html";
+    include_once "./includes/nav.php";
 
     // Databaseconfiguratie
     $host = 'localhost';

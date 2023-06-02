@@ -34,8 +34,8 @@
                         <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
                         <a href="./frm-productadding.php">Product toevoegen</a>
                         <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
-                        <a href="./landen_toevoegen.php">Land toevoegen</a>                        
-                        <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>                        
+                        <a href="./landen_toevoegen.php">Land toevoegen</a>
+                        <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
 
                     </div>
                     <div>
@@ -71,8 +71,18 @@
                 </div>
             </div>
             <div class="profileContainer">
-                <a class="login" href="./login.php">Sign In</a>
-                <a class="login" href="./signup.php">Sign up</a>
+                <?php
+                session_start();
+                if (!isset($_SESSION["klant_id"]) && !isset($_SESSION["klant_email"])) {
+                    echo '<a class="login" href="./login.php">Sign In</a>';
+
+                    echo '<a class="login" href="./signup.php">Sign up</a>';
+                } else {
+                    echo '<p class="login">' . $_SESSION["klant_email"] . '</p>';
+                    echo '<a class="login" href="./logout.php">Log out</a>';
+                }
+
+                ?>
                 <img class="profile" src="./images/profile.png" alt="">
             </div>
         </li>

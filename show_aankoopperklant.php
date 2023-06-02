@@ -11,7 +11,7 @@
 
 <body>
     <?php
-    include_once "./includes/nav.html";
+    include_once "./includes/nav.php";
 
     $host = 'localhost';
     $dbname = 'befs';
