@@ -5,8 +5,8 @@
             <div class="dropdown">
                 <button class="dropbtn">Over ons</button>
                 <div class="dropdown-content">
-                    <a href="#">Eco vriendelijk</a>
-                    <a href="#">Levering en retour</a>
+                    <a href="./eco_vriendelijkheid.php">Eco vriendelijk</a>
+                    <a href="./levering_retour.php">Levering en retour</a>
                     <a href="#">Medewerkers</a>
                     <a href="#">Doelstelling</a>
                     <a href="#">Geschiedenis</a>
@@ -16,13 +16,13 @@
                 <button class="dropbtn">Informatie</button>
                 <div class="dropdown-content">
                     <a href="#">Klanten</a>
-                    <a href="#">Categorieën</a>
-                    <a href="#">Leveranciers</a>
+                    <a href="./show_categorien.php">Categorieën</a>
+                    <a href="./show_leveranciers.php">Leveranciers</a>
                     <a href="./show-products.php">Producten</a>
                     <a href="#">Aankoop</a>
-                    <a href="#">Landen</a>
+                    <a href="./show_country.php">Landen</a>
                     <a href="#">Aankoopdet.-prod</a>
-                    <a href="#">Product lev.</a>
+                    <a href="./show_catperproduct.php">Product lev.</a>
                     <a href="#">Aankoopdet.-prod</a>
                 </div>
             </div>
@@ -34,14 +34,17 @@
                         <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
                         <a href="./frm-productadding.php">Product toevoegen</a>
                         <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
-                        <a href="./landen_toevoegen.php">Land toevoegen</a>                        
-                        <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>                        
+                        <a href="./landen_toevoegen.php">Land toevoegen</a>
+                        <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
 
                     </div>
                     <div>
+                        <a href="./product_wijzigen.php">Product wijzigen</a>
+                        <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
+                        <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
                         <a href="#">Lev per land</a>
-                        <a href="#">Prod per cat</a>
-                        <a href="#">Aankoop per klant</a>
+                        <a href="./show_catperproduct.php">Prod per cat</a>
+                        <a href="./show_aankoopperklant.php">Aankoop per klant</a>
                         <a href="#">Regels per aankoop</a>
                         <a href="#">Aankoop per prod</a>
                         <a href="#">Prod prijs -lev</a>
@@ -68,9 +71,22 @@
                 </div>
             </div>
             <div class="profileContainer">
-                <a class="login" href="./login.php">Sign In</a>
-                <a class="login" href="./signup.php">Sign up</a>
+                <?php
+                error_reporting(0);  // Disable error reporting
+                ini_set('display_errors', 0);  // Do not display errors
+                session_start();
+                if (!isset($_SESSION["klant_id"]) && !isset($_SESSION["klant_email"])) {
+                    echo '<a class="login" href="./login.php">Sign In</a>';
+
+                    echo '<a class="login" href="./signup.php">Sign up</a>';
+                } else {
+                    echo '<p class="login">' . $_SESSION["klant_fname"] . "     " . $_SESSION["klant_lname"] . '</p>';
+                    echo '<a class="login" href="./logout.php">Log out</a>';
+                }
+
+                ?>
                 <img class="profile" src="./images/profile.png" alt="">
+
             </div>
         </li>
 

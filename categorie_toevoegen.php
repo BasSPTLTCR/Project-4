@@ -11,7 +11,7 @@
 
 <body>
     <?php
-    include_once "./includes/nav.html";
+    include_once "./includes/nav.php";
     require 'db-connection.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -27,32 +27,39 @@
         if ($categoryCount > 0) {
             echo "Deze categorie bestaat al in de database.";
         } else {
-            $sql = "INSERT INTO category (name) VALUES (:name)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':name', $name);
+            if (isset($_POST["confirm"]) && $_POST["confirm"] == "Ja") {
+                $sql = "INSERT INTO category (name) VALUES (:name)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':name', $name);
 
-            try {
-                $stmt->execute();
-                echo "Categorie succesvol toegevoegd.";
-            } catch (PDOException $e) {
-                echo "Fout bij het toevoegen van de categorie: " . $e->getMessage();
+                try {
+                    $stmt->execute();
+                    echo "Categorie succesvol toegevoegd.";
+                } catch (PDOException $e) {
+                    echo "Fout bij het toevoegen van de categorie: " . $e->getMessage();
+                }
+            } elseif (isset($_POST["confirm"]) && $_POST["confirm"] == "Nee") {
+                echo "Categorie toevoegen geannuleerd.";
+            } else {
+                // Gebruiker om bevestiging vragen
+                echo "Weet je zeker dat je de volgende categorie wilt toevoegen: " . $name . "?";
+                echo "<br>";
+                echo '<form method="post">';
+                echo '<input type="hidden" name="name" value="' . $name . '">';
+                echo '<input type="submit" name="confirm" value="Ja">';
+                echo '<input type="submit" name="confirm" value="Nee">';
+                echo '</form>';
             }
         }
     }
     ?>
 
-    <form method="post" onsubmit="return confirmSubmission()">
+    <form method="post">
         <label>Naam:</label>
         <input type="text" name="name" required><br>
 
         <input type="submit" value="Categorie toevoegen">
     </form>
-
-    <script>
-        function confirmSubmission() {
-            return confirm("Weet u zeker dat u de leverancier wilt toevoegen?");
-        }
-    </script>
 
 
 

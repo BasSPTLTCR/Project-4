@@ -11,15 +11,15 @@
 
 <body class="loginBody">
     <?php
-    include_once "./includes/nav.html";
+    session_start();
+
+    include_once "./includes/nav.php";
 
     // Databaseconfiguratie
     $host = 'localhost';
     $dbname = 'befs';
     $user = 'root';
     $password = '';
-
-    session_start();
 
     // Functie om in te loggen als klant
     function loginAlsKlant($email, $wachtwoord)
@@ -51,6 +51,9 @@
                 // Zet de SESSION-variabelen voor een ingelogde klant
                 $_SESSION['klant_id'] = $klant['id'];
                 $_SESSION['klant_email'] = $klant['email'];
+                $_SESSION['klant_fname'] = $klant['first_name'];
+                $_SESSION['klant_lname'] = $klant['last_name'];
+                $_SESSION['admin'] = $klant['admin'];
 
                 // Geef een melding dat het inloggen is geslaagd
                 echo "Inloggen is gelukt!";
@@ -83,6 +86,7 @@
         <input type="password" name="wachtwoord" placeholder="Password" required />
         <button type="submit" value="Inloggen">Sign in</button>
     </form>
+
 
 </body>
 

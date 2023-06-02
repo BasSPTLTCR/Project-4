@@ -37,8 +37,8 @@
             exit; // Stop further execution
         }
 
-        $sql = "INSERT INTO supplier (company, address, streetnr, zipcode, city, state, countryid, telephone, website)
-            VALUES (:company, :address, :streetnr, :zipcode, :city, :state, :countryid, :telephone, :website)";
+        $sql = "INSERT INTO supplier (company, adress, streetnr, zipcode, city, state, countryid, telephone, website)
+        VALUES (:company, :address, :streetnr, :zipcode, :city, :state, :countryid, :telephone, :website)";
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(':company', $company);
@@ -105,12 +105,6 @@
             }
         </script>
     <?php } ?>
-
-
-
-
-
-
 </body>
 
 </html>

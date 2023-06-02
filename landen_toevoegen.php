@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<?php
+    <?php
     include "./includes/nav.php";
     ?>
     <?php
@@ -18,7 +18,7 @@
 
     if (strtoupper($_SERVER["REQUEST_METHOD"]) == "POST") {
         if (isset($_POST['agreed'])) { //User heeft dus nog geen akkoord gegeven...
-            ?>
+    ?>
 
             U staat op het punt om
             <?php echo $_POST['name']; ?> met code
@@ -35,7 +35,7 @@
                 <button value="NEE" onclick="javascript:history.go(-1);">NEE</button>
             </form>
 
-            <?php
+        <?php
         } else {
             if (isset($_POST['JA'])) {
                 $name = $_POST["name"];
@@ -89,7 +89,7 @@
 
             <input type="submit" name="agreed" value="Landen toevoegen">
         </form>
-        <?php
+    <?php
 
     }
     ?>
