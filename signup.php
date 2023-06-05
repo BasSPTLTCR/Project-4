@@ -11,15 +11,20 @@
 
 <body>
 
-<?php 
-require 'db-connection.php';
-include_once "./includes/nav.html";
+    <?php
+    require 'db-connection.php';
+    include_once "./includes/nav.php";
 
 
-    try {
-        $oneQuery = $conn->prepare("SELECT name AS countryname FROM `country`;");
-    } catch(PDOException $e) {
-        die("Fout bij verbinden met de database: " . $e->getMessage());
+    
+    function sanitizeInput($value)
+    {
+        // Sanitize user input
+        $value = trim($value);
+        $value = stripslashes($value);
+        $value = strip_tags($value);
+        $value = htmlspecialchars($value);
+        return $value;
     }
     $oneQuery->execute();
 
@@ -93,29 +98,29 @@ if (ISSET($_POST["register"])) {
     
 ?>
 
-    <form method="post">
-        <input type="text" name="firstname" placeholder="Voornaam" required><br>
-        <input type="text" name="lastname" placeholder="Achternaam" required><br>
-        <input type="text" name="email" placeholder="Email" required><br>
-        <input type="password" name="password" placeholder="Wachtwoord" required><br>
-        <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
-        <input type="text" name="address" placeholder="Adres" required><br>
-        <input type="text" name="zipcode" placeholder="Postcode" required><br>
-        <input type="text" name="city" placeholder="Stad" required><br>
-        <input type="text" name="state" placeholder="Provincie/Staat" required><br>
-        <select name="country" id="countryname">
-            <option value="">--------------------------- Land ---------------------------</option>
 
+    <form method="post">
+            <input type="text" name="firstname" placeholder="Voornaam" required><br>
+            <input type="text" name="lastname" placeholder="Achternaam" required><br>
+            <input type="text" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Wachtwoord" required><br>
+            <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
+            <input type="text" name="address" placeholder="Adres" required><br>
+            <input type="text" name="zipcode" placeholder="Postcode" required><br>
+            <input type="text" name="city" placeholder="Stad" required><br>
+            <input type="text" name="state" placeholder="Provincie/Staat" required><br>
+            <select name="country" id="countryname">
+                <option value="">Land</option>
                 <?php
-                    foreach($oneQuery as $rij) 
+                    foreach($result1 as $rij) 
                     {
                         echo "<option>".$rij["countryname"]."</option>";
                     }
                 ?>
             </select><br>
-        <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
+            <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
 
-        <input type="submit" value="Klant toevoegen" name="register">
+            <input type="submit" value="Klant toevoegen" name="register">
     </form>
 
 </body>

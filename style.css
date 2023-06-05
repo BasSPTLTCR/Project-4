@@ -172,6 +172,14 @@
 
 /* muteer product */
 
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: red;
+}
+
 .prodmuteer {
   border-collapse: collapse;
   border: solid black 1px;
@@ -182,7 +190,7 @@
 }
 
 .first {
-  width: 7rem;
+  width: 10rem;
 }
 
 .second {
@@ -201,17 +209,35 @@
   padding-left: 2rem;
 }
 
-.submit{
+.submit {
   display: flex;
   justify-content: center;
+}
+
+.signupBox {
+  display: flex ;
 }
 
 /* Footer */
 footer {
   height: 10vh;
-  background-color: gray;
+  background-color: rgb(46, 46, 46);
+  color: rgb(100, 100, 100)
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Eco Vriendelijkheid */
+
+.ecoHeader, .levHeader {
+  width: 50vw;
+  margin-left: 2rem;
+}
+
+.ecoText, .levText {
+  width: 50vw;
+  margin-left: 2rem;
+  margin-top: 1rem;
 }

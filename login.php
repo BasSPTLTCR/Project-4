@@ -11,7 +11,10 @@
 
 <body class="loginBody">
     <?php
-    include_once "./includes/nav.html";
+    ob_start();
+    session_start();
+
+    include_once "./includes/nav.php";
 
     // Databaseconfiguratie
     $host = 'localhost';
@@ -19,18 +22,10 @@
     $user = 'root';
     $password = '';
 
-    session_start();
-
     // Functie om in te loggen als klant
     function loginAlsKlant($email, $wachtwoord)
     {
         global $host, $dbname, $user, $password;
-
-        // Controleer of er geen klant is ingelogd
-        if (isset($_SESSION['klant_id'])) {
-            echo "Er is al een klant ingelogd.";
-            return;
-        }
 
         try {
             // Maak een verbinding met de database met behulp van PDO
@@ -51,12 +46,19 @@
                 // Zet de SESSION-variabelen voor een ingelogde klant
                 $_SESSION['klant_id'] = $klant['id'];
                 $_SESSION['klant_email'] = $klant['email'];
+                $_SESSION['klant_naam'] = $klant['first_name'];
+                $_SESSION['admin'] = $klant['admin'];
+                $_SESSION['klant_fname'] = $klant['first_name'];
+                $_SESSION['klant_lname'] = $klant['last_name'];
+                $_SESSION['admin'] = $klant['admin'];
 
+
+                
                 // Geef een melding dat het inloggen is geslaagd
+                header("Location:index.php");
                 echo "Inloggen is gelukt!";
 
                 // Keer terug naar de home-pagina met het menu van de klant actief
-                header("Location: index.php");
                 exit();
             } else {
                 // Inloggen mislukt
@@ -83,6 +85,7 @@
         <input type="password" name="wachtwoord" placeholder="Password" required />
         <button type="submit" value="Inloggen">Sign in</button>
     </form>
+
 
 </body>
 
