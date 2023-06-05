@@ -40,11 +40,11 @@
 
 
         if (isset($_POST["active"])) {
-            // $productId = $_POST["active"];
-            session_abort();
-            // $query = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
-            // $query->bindValue(':productId', $productId);
-            // $query->execute();
+            $productId = $_POST["active"];
+            
+            $query = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
+            $query->bindValue(':productId', $productId);
+            $query->execute();
         }
         
         if (isset($_POST["inactive"])) {
