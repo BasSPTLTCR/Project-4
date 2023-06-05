@@ -239,6 +239,7 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 400px;
   background: white;
   border: solid rgb(45, 45, 45) 2px;
   border-radius: 10px;
@@ -259,7 +260,7 @@ form .txt_field, form .txt_field1 {
   margin: 30px 0;
 }
 .txt_field input {
-  width: 100%;
+  width: 320px;
   padding: 0 5px;
   height: 40px;
   font-size: 16px;
