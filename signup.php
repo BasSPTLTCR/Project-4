@@ -16,7 +16,7 @@
 
     require 'db-connection.php';
 
-
+    
     function sanitizeInput($value)
     {
         // Sanitize user input
@@ -26,7 +26,7 @@
         $value = htmlspecialchars($value);
         return $value;
     }
-
+    
     if (isset($_POST["register"])) {
         $filteredFirstname = sanitizeInput($_POST["firstname"]);
         $filteredLastname = sanitizeInput($_POST["lastname"]);
@@ -39,26 +39,26 @@
         $filteredState = sanitizeInput($_POST["state"]);
         $filteredCountry = sanitizeInput($_POST["country"]);
         $filteredTelephone = sanitizeInput($_POST["telephone"]);
-
+        
         try {
             $hashedpw = password_hash($filteredPassword, PASSWORD_DEFAULT);
             $admin = "0";
-
+            
             // Prepare the query
             $query = "SELECT COUNT(email) AS count_email FROM client WHERE email = :filteredEmail";
-
+            
             // Prepare the statement
             $statement = $conn->prepare($query);
-
+            
             // Bind the email parameter
             $statement->bindValue(':filteredEmail', $filteredEmail);
-
+            
             // Execute the statement
             $statement->execute();
-
+            
             // Fetch the result
             $countEmail = $statement->rowCount();
-
+            
             if ($countEmail >= 0) {
                 if ($filteredPassword == $filteredPasswordVeri) {
                     $sql = "INSERT INTO client (email, first_name, last_name, password, address, zipcode, city, state, country, telephone, admin)
@@ -76,7 +76,7 @@
                     $stmt->bindValue(':filteredTelephone', $filteredTelephone);
                     $stmt->bindValue(':admin', $admin);
                     $stmt->execute();
-
+                    
                     echo "Gebruiker succesvol aangemaakt!";
                 } else {
                     echo "Wachtwoord klopt niet";
@@ -91,13 +91,13 @@
 
     try {
         $oneQuery = $conn->prepare("SELECT name AS 'countryname' FROM `country`;");
-    } catch (PDOException $e) {
+    } catch(PDOException $e) {
         die("Fout bij verbinden met de database: " . $e->getMessage());
     }
     $oneQuery->execute();
-
+    
     $result1 = $oneQuery->fetchAll(PDO::FETCH_ASSOC);
-
+    
     ?>
 
 
