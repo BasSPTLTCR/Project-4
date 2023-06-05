@@ -35,8 +35,8 @@
                 $email = $_POST["email"];
                 $firstname = $_POST["firstname"];
                 $lastname = $_POST["lastname"];
-                $hashedpw = password_hash($password, PASSWORD_DEFAULT);
-                $password = $_POST["password"];
+                $password = $_POST["password"];  // Move this line before hashing
+                $hashedpw = password_hash($password, PASSWORD_DEFAULT);  // Hash the password after assigning it to $password
                 $passwordVerify = $_POST["passwordVerify"];
                 $address = $_POST["address"];
                 $zipcode = $_POST["zipcode"];
@@ -44,6 +44,7 @@
                 $state = $_POST["state"];
                 $country = $_POST["country"];
                 $phonenr = $_POST["telephone"];
+                $admin = "0";
 
                 // Prepare the query
                 $query = "SELECT COUNT(email) AS count_email FROM client WHERE email = :email";
@@ -64,9 +65,9 @@
                 $countEmail = $result['count_email'];
 
                 if ($countEmail == 0) {
-                    if ($password == $passwordVerify) {
+                    if (password_verify($passwordVerify, $hashedpw)) {
                         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        $sql = "INSERT INTO client (email, first_name, last_name, password, address, zipcode, city, state, country, telephone) VALUES ( '$email', '$firstname', '$lastname', '$hashedpw', '$address', '$zipcode', '$city', '$state', '$country', '$phonenr')";
+                        $sql = "INSERT INTO client (email, first_name, last_name, password, address, zipcode, city, state, country, telephone, admin) VALUES ( '$email', '$firstname', '$lastname', '$hashedpw', '$address', '$zipcode', '$city', '$state', '$country', '$phonenr', '$admin')";
                         $conn->exec($sql);
                     } else {
                         echo "Wachtwoord klopt niet";

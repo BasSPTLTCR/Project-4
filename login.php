@@ -43,7 +43,7 @@
             // Zoek de klant-gegevens met de opgegeven e-mail
             $query = "SELECT * FROM client WHERE email = :email";
             $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':email', $email);
+            $stmt->bindValue(':email', $email);
             $stmt->execute();
             $klant = $stmt->fetch(PDO::FETCH_ASSOC);
 

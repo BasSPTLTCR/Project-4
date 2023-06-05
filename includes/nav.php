@@ -31,6 +31,7 @@
             ini_set('display_errors', 0);  // Do not display errors
             session_start();
             if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
+                
             ?>
                 <div class="dropdown">
                     <button class="dropbtn">Admin</button>
