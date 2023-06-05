@@ -101,33 +101,6 @@
     ?>
 
 
-    <form method="post">
-        <input type="text" name="firstname" placeholder="Voornaam" required><br>
-        <input type="text" name="lastname" placeholder="Achternaam" required><br>
-        <input type="email" name="email" placeholder="Email" required><br>
-        <input type="password" name="password" placeholder="Wachtwoord" required><br>
-        <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
-        <input type="text" name="address" placeholder="Adres" required><br>
-        <input type="text" name="zipcode" placeholder="Postcode" required><br>
-        <input type="text" name="city" placeholder="Stad" required><br>
-        <input type="text" name="state" placeholder="Provincie/Staat" required><br>
-        <select name="country" id="countryname">
-            <option value="">Land</option>
-            <?php
-            foreach ($result1 as $rij) {
-                echo "<option>" . $rij["countryname"] . "</option>";
-            }
-            ?>
-        </select><br>
-        <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
-
-        <input type="submit" value="Klant toevoegen" name="register">
-    </form>
-
-</body>
-
-</html>
-
 <div class="center1">
     <h1>Sign Up</h1>
     <form method="POST">
@@ -190,7 +163,12 @@
         </select><br>
         <input class="loginSubmit" type="submit" value="Account Maken">
         <div class="signup_link">
-            Already have an account? <a href="./login.php">Signup</a>
+            Already have an account? <a href="./login.php">Sign in</a>
         </div>
     </form>
 </div>
+
+</body>
+
+</html>
+

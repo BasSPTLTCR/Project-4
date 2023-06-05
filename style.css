@@ -239,7 +239,6 @@ footer {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
   background: white;
   border: solid rgb(45, 45, 45) 2px;
   border-radius: 10px;
