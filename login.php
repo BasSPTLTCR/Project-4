@@ -27,12 +27,6 @@
     {
         global $host, $dbname, $user, $password;
 
-        // Controleer of er geen klant is ingelogd
-        if (isset($_SESSION['klant_id'])) {
-            echo "Er is al een klant ingelogd.";
-            return;
-        }
-
         try {
             // Maak een verbinding met de database met behulp van PDO
             $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
@@ -52,6 +46,8 @@
                 // Zet de SESSION-variabelen voor een ingelogde klant
                 $_SESSION['klant_id'] = $klant['id'];
                 $_SESSION['klant_email'] = $klant['email'];
+                $_SESSION['klant_naam'] = $klant['first_name'];
+                $_SESSION['admin'] = $klant['admin'];
                 $_SESSION['klant_fname'] = $klant['first_name'];
                 $_SESSION['klant_lname'] = $klant['last_name'];
                 $_SESSION['admin'] = $klant['admin'];
