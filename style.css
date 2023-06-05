@@ -427,3 +427,18 @@ form .txt_field1 {
   padding: 0 40px;
   box-sizing: border-box;
 }
+
+.l {
+  width: 100vw;
+  height: 100vh;
+}
+
+.normal {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  background-image: url(./images/bread04.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
