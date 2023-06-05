@@ -14,7 +14,6 @@
         session_start();
 
         if ($_SESSION['admin'] == 1) {
-            $email = $_SESSION['klant_email'];
             echo "Welkom ".$_SESSION['klant_naam']."";
         } else {
             // header('location: index.php');
