@@ -98,9 +98,9 @@
           <label>Password</label>
         </div>
         <div class="pass">Forgot Password?</div>
-        <input type="submit" value="Inloggen">
+        <input class="loginSubmit" type="submit" value="Inloggen">
         <div class="signup_link">
-          Not a member? <a href="#">Signup</a>
+          Not a member? <a href="./signup.php">Signup</a>
         </div>
       </form>
     </div>
