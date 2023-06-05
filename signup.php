@@ -12,105 +12,117 @@
 <body>
 
     <?php
-    require 'db-connection.php';
     include_once "./includes/nav.php";
 
+    require 'db-connection.php';
+
+    
+    function sanitizeInput($value)
+    {
+        // Sanitize user input
+        $value = trim($value);
+        $value = stripslashes($value);
+        $value = strip_tags($value);
+        $value = htmlspecialchars($value);
+        return $value;
+    }
+    
+    if (isset($_POST["register"])) {
+        $filteredFirstname = sanitizeInput($_POST["firstname"]);
+        $filteredLastname = sanitizeInput($_POST["lastname"]);
+        $filteredPassword = sanitizeInput($_POST["password"]);
+        $filteredPasswordVeri = sanitizeInput($_POST["passwordVerify"]);
+        $filteredEmail = sanitizeInput($_POST["email"]);
+        $filteredAddress = sanitizeInput($_POST["address"]);
+        $filteredZipcode = sanitizeInput($_POST["zipcode"]);
+        $filteredCity = sanitizeInput($_POST["city"]);
+        $filteredState = sanitizeInput($_POST["state"]);
+        $filteredCountry = sanitizeInput($_POST["country"]);
+        $filteredTelephone = sanitizeInput($_POST["telephone"]);
+        
+        try {
+            $hashedpw = password_hash($filteredPassword, PASSWORD_DEFAULT);
+            $admin = "0";
+            
+            // Prepare the query
+            $query = "SELECT COUNT(email) AS count_email FROM client WHERE email = :filteredEmail";
+            
+            // Prepare the statement
+            $statement = $conn->prepare($query);
+            
+            // Bind the email parameter
+            $statement->bindValue(':filteredEmail', $filteredEmail);
+            
+            // Execute the statement
+            $statement->execute();
+            
+            // Fetch the result
+            $countEmail = $statement->rowCount();
+            
+            if ($countEmail >= 0) {
+                if ($filteredPassword == $filteredPasswordVeri) {
+                    $sql = "INSERT INTO client (email, first_name, last_name, password, address, zipcode, city, state, country, telephone, admin)
+                            VALUES (:filteredEmail, :filteredFirstname, :filteredLastname, :hashedpw, :filteredAddress, :filteredZipcode, :filteredCity, :filteredState, :filteredCountry, :filteredTelephone, :admin)";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bindValue(':filteredEmail', $filteredEmail);
+                    $stmt->bindValue(':filteredFirstname', $filteredFirstname);
+                    $stmt->bindValue(':filteredLastname', $filteredLastname);
+                    $stmt->bindValue(':hashedpw', $hashedpw);
+                    $stmt->bindValue(':filteredAddress', $filteredAddress);
+                    $stmt->bindValue(':filteredZipcode', $filteredZipcode);
+                    $stmt->bindValue(':filteredCity', $filteredCity);
+                    $stmt->bindValue(':filteredState', $filteredState);
+                    $stmt->bindValue(':filteredCountry', $filteredCountry);
+                    $stmt->bindValue(':filteredTelephone', $filteredTelephone);
+                    $stmt->bindValue(':admin', $admin);
+                    $stmt->execute();
+                    
+                    echo "Gebruiker succesvol aangemaakt!";
+                } else {
+                    echo "Wachtwoord klopt niet";
+                }
+            } else {
+                echo "Email is al in gebruik.";
+            }
+        } catch (PDOException $e) {
+            echo "Fout bij verbinden met de database: " . $e->getMessage();
+        }
+    }
 
     try {
-        $oneQuery = $conn->prepare("SELECT name AS countryname FROM `country`;");
-    } catch (PDOException $e) {
+        $oneQuery = $conn->prepare("SELECT name AS 'countryname' FROM `country`;");
+    } catch(PDOException $e) {
         die("Fout bij verbinden met de database: " . $e->getMessage());
     }
     $oneQuery->execute();
-
-    if ($oneQuery->RowCount() < 0)
-        $result1 = $oneQuery->FetchAll(PDO::FETCH_ASSOC);
-
-
-    if (isset($_POST["register"])) {
-
-        if ($_POST["email"] != "" && $_POST["firstname"] != "" && $_POST["lastname"] != "" && $_POST["password"] != "") {
-
-            try {
-                $email = $_POST["email"];
-                $firstname = $_POST["firstname"];
-                $lastname = $_POST["lastname"];
-                $hashedpw = password_hash($password, PASSWORD_DEFAULT);
-                $password = $_POST["password"];
-                $passwordVerify = $_POST["passwordVerify"];
-                $address = $_POST["address"];
-                $zipcode = $_POST["zipcode"];
-                $city = $_POST["city"];
-                $state = $_POST["state"];
-                $country = $_POST["country"];
-                $phonenr = $_POST["telephone"];
-
-                // Prepare the query
-                $query = "SELECT COUNT(email) AS count_email FROM client WHERE email = :email";
-
-                // Prepare the statement
-                $statement = $conn->prepare($query);
-
-                // Bind the email parameter
-                $statement->bindParam(':email', $email);
-
-                // Execute the statement
-
-                $statement->execute();
-                // Fetch the result
-                $result = $statement->fetch(PDO::FETCH_ASSOC);
-
-                // Access the value of 'count_email'
-                $countEmail = $result['count_email'];
-
-                if ($countEmail == 0) {
-                    if ($password == $passwordVerify) {
-                        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        $sql = "INSERT INTO client (email, first_name, last_name, password, address, zipcode, city, state, country, telephone) VALUES ( '$email', '$firstname', '$lastname', '$hashedpw', '$address', '$zipcode', '$city', '$state', '$country', '$phonenr')";
-                        $conn->exec($sql);
-                    } else {
-                        echo "Wachtwoord klopt niet";
-                    }
-                } else {
-                    echo "Email is al in gebruik.";
-                }
-            } catch (PDOException $e) {
-                echo $e->getMessage();
-            }
-            $_SESSION["message"] = array("text" => "Gebruiker succesvol aangemaakt", "alert" => "info");
-            $conn = null;
-            // header('location:index.php');
-        } else {
-            echo "
-            <script>alert('Please fill up the required field!')</script>
-            <script>window.location = 'clientadd.php'</script>";
-        }
-    };
-
+    
+    $result1 = $oneQuery->fetchAll(PDO::FETCH_ASSOC);
+    
     ?>
 
+
     <form method="post">
-        <input type="text" name="firstname" placeholder="Voornaam" required><br>
-        <input type="text" name="lastname" placeholder="Achternaam" required><br>
-        <input type="text" name="email" placeholder="Email" required><br>
-        <input type="password" name="password" placeholder="Wachtwoord" required><br>
-        <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
-        <input type="text" name="address" placeholder="Adres" required><br>
-        <input type="text" name="zipcode" placeholder="Postcode" required><br>
-        <input type="text" name="city" placeholder="Stad" required><br>
-        <input type="text" name="state" placeholder="Provincie/Staat" required><br>
-        <select name="country" id="countryname">
-            <option value="">--------------------------- Land ---------------------------</option>
+            <input type="text" name="firstname" placeholder="Voornaam" required><br>
+            <input type="text" name="lastname" placeholder="Achternaam" required><br>
+            <input type="text" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Wachtwoord" required><br>
+            <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
+            <input type="text" name="address" placeholder="Adres" required><br>
+            <input type="text" name="zipcode" placeholder="Postcode" required><br>
+            <input type="text" name="city" placeholder="Stad" required><br>
+            <input type="text" name="state" placeholder="Provincie/Staat" required><br>
+            <select name="country" id="countryname">
+                <option value="">Land</option>
+                <?php
+                    foreach($result1 as $rij) 
+                    {
+                        echo "<option>".$rij["countryname"]."</option>";
+                    }
+                ?>
+            </select><br>
+            <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
 
-            <?php
-            foreach ($oneQuery as $rij) {
-                echo "<option>" . $rij["countryname"] . "</option>";
-            }
-            ?>
-        </select><br>
-        <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
-
-        <input type="submit" value="Klant toevoegen" name="register">
+            <input type="submit" value="Klant toevoegen" name="register">
     </form>
 
 </body>
