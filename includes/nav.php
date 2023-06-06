@@ -68,7 +68,8 @@
                 <button class="dropbtn">Muteer</button>
                 <div class="dropdown-content">
                     <a href="./prodmuteer.php">Product</a>
-                    <a href="#">Beheeerrechten</a>
+                    <a href="./categorie_verwijder.php">Categorie Verwijderen</a>
+                    <a href="./beheer_rechten.php">Beheeerrechten</a>
                 </div>
             </div>
             <div class="profileContainer">
