@@ -22,18 +22,20 @@
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt = $pdo->query('SELECT idcountry, name, code FROM country');
+        $stmt = $pdo->query('SELECT purchase.ID, first_name, last_name, purchasedate, delivered FROM purchase INNER JOIN client ON purchase.clientid = client.id');
         $tableData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Display the table
         echo "<table>";
-        echo "<tr><th>Name</th><th>Code</th></tr>";
+        echo "<tr><th>Client name</th><th>Purchase Date</th><th> Delivered</th></tr>";
 
         foreach ($tableData as $row) {
+            $delivered = ($row['delivered'] === 1) ? "Yes" : "No";
             echo "<tr>";
-            echo "<td>" . $row['name'] . "</td>";
-            echo "<td>" . $row['code'] . "</td>";
-            echo "<td><a href=\"delete_country.php?id=".$row['idcountry']."\">Verwijderen</a></td>";
+            echo "<td>" . $row['first_name'] . " " . $row['last_name'] . "</td>";
+            echo "<td>" . $row['purchasedate'] . "</td>";
+            echo "<td>" . $delivered . "</td>";
+            echo "<td><a href=\"delete_orders.php?id=" . $row['ID'] . "\">Verwijderen</a></td>";
             echo "</tr>";
         }
 

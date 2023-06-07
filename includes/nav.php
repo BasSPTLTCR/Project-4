@@ -43,6 +43,7 @@
                             <a href="./frm-productadding.php">Product toevoegen</a>
                             <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
                             <a href="./landen_toevoegen.php">Land toevoegen</a>
+                            <a href="./landen_verwijderen.php">Land verwijderen</a>
                             <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
                             <a href="./product_wijzigen.php">Product wijzigen</a>
                             <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
@@ -50,6 +51,7 @@
                             <a href="#">Lev per land</a>
                             <a href="./show_catperproduct.php">Prod per cat</a>
                             <a href="./show_aankoopperklant.php">Aankoop per klant</a>
+                            <a href="./show_orders.php">Bestellingen laten zien</a>
                             <a href="#">Regels per aankoop</a>
                             <a href="#">Aankoop per prod</a>
                             <a href="#">Prod prijs -lev</a>
