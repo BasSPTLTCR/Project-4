@@ -19,7 +19,7 @@
                 aliquid laboriosam porro nam officiis sequi suscipit explicabo soluta sit labore.</p>
             <div class="container">
                 <input type="text" class="email-input" placeholder="What are you looking for?">
-                <a href=""><button type="submit" class="submit-button">Submit</button></a>
+                <a href="./normal.php"><button type="submit" class="submit-button">Submit</button></a>
             </div>
         </div>
         <div id="slideshow">

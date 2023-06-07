@@ -26,6 +26,7 @@
         $value = htmlspecialchars($value);
         return $value;
     }
+
     
     if (isset($_POST["register"])) {
         $filteredFirstname = sanitizeInput($_POST["firstname"]);
@@ -101,30 +102,74 @@
     ?>
 
 
-    <form method="post">
-            <input type="text" name="firstname" placeholder="Voornaam" required><br>
-            <input type="text" name="lastname" placeholder="Achternaam" required><br>
-            <input type="text" name="email" placeholder="Email" required><br>
-            <input type="password" name="password" placeholder="Wachtwoord" required><br>
-            <input type="password" name="passwordVerify" placeholder="Herhaal wachtwoord" required><br>
-            <input type="text" name="address" placeholder="Adres" required><br>
-            <input type="text" name="zipcode" placeholder="Postcode" required><br>
-            <input type="text" name="city" placeholder="Stad" required><br>
-            <input type="text" name="state" placeholder="Provincie/Staat" required><br>
-            <select name="country" id="countryname">
-                <option value="">Land</option>
-                <?php
-                    foreach($result1 as $rij) 
-                    {
-                        echo "<option>".$rij["countryname"]."</option>";
-                    }
-                ?>
-            </select><br>
-            <input type="text" name="telephone" placeholder="Telefoon nummer" required><br>
-
-            <input type="submit" value="Klant toevoegen" name="register">
+<div class="center1">
+    <h1>Sign Up</h1>
+    <form method="POST">
+        <div class="txt_field">
+            <input type="text" name="firstname" required>
+            <span></span>
+            <label>First Name</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" name="lastname" required>
+            <span></span>
+            <label>Last Name</label>
+        </div>
+        <div class="txt_field">
+            <input type="email" name="email" required>
+            <span></span>
+            <label>Email</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="password" required>
+            <span></span>
+            <label>Password</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="passwordVerify" required>
+            <span></span>
+            <label>Verify Password</label>
+        </div>
+        <div class="txt_container">
+            <div class="txt_field1">
+                <input type="text" name="address" required>
+                <span></span>
+                <label>Adress</label>
+            </div>
+            <div class="txt_field1">
+                <input type="text" name="zipcode" required>
+                <span></span>
+                <label>Zipcode</label>
+            </div>
+        </div>
+        <div class="txt_container">
+            <div class="txt_field1">
+                <input type="text" name="city" required>
+                <span></span>
+                <label>City</label>
+            </div>
+            <div class="txt_field1">
+                <input type="text" name="state" required>
+                <span></span>
+                <label>State</label>
+            </div>
+        </div>
+        <select class="txt_field2" name="country" id="countryname">
+            <option value="">Land</option>
+            <?php
+            foreach ($result1 as $rij) {
+                echo "<option>" . $rij["countryname"] . "</option>";
+            }
+            ?>
+        </select><br>
+        <input class="loginSubmit" type="submit" value="Account Maken">
+        <div class="signup_link">
+            Already have an account? <a href="./login.php">Sign in</a>
+        </div>
     </form>
+</div>
 
 </body>
 
 </html>
+
