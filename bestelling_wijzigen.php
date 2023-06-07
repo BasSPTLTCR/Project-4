@@ -53,7 +53,7 @@ $conn = null;
         <label for="ID">Bestelling ID:</label>
         <input type="text" name="ID" required><br>
 
-        <label for="new_quantity">new quantity:</label>
+        <label for="new_quantity">nieuw aantal:</label>
         <input type="text" name="new_quantity" required><br>
 
         <input type="submit" value="Gegevens wijzigen">
