@@ -26,6 +26,7 @@
         $value = htmlspecialchars($value);
         return $value;
     }
+
     
     if (isset($_POST["register"])) {
         $filteredFirstname = sanitizeInput($_POST["firstname"]);

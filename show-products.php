@@ -10,16 +10,16 @@
 </head>
 
 <body>
-    <?php
-    include "./includes/nav.php";
-    ?>
-    <?php
-
-    // conection database
-    require './db-connection.php';
-    session_start();
-    $_SESSION["customerSignedIn"] = 1;
-
+<?php
+        include "./includes/nav.php";
+        ?>
+<?php
+        
+            // conection database
+            require './db-connection.php';
+            session_start();
+            $_SESSION["customerSignedIn"] = 1;
+            
 
     // Producten ophalen
     $query = $conn->prepare("SELECT product.*, category.name AS Category, supplier.company AS Supplier FROM product 

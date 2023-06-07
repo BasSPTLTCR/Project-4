@@ -172,6 +172,14 @@
 
 /* muteer product */
 
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: red;
+}
+
 .prodmuteer {
   border-collapse: collapse;
   border: solid black 1px;
@@ -182,7 +190,7 @@
 }
 
 .first {
-  width: 7rem;
+  width: 10rem;
 }
 
 .second {
@@ -204,6 +212,10 @@
 .submit {
   display: flex;
   justify-content: center;
+}
+
+.signupBox {
+  display: flex ;
 }
 
 /* Footer */
