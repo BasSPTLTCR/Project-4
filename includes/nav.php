@@ -55,8 +55,9 @@
                             <a href="#">Prod prijs -lev</a>
                             <a href="#">Prod prijs - cat</a>
                             <a href="#">Tot prijs - aankoop</a>
-                            <a href="#">Bas zijn rare muteer dingen</a>
-                            <a href="#">Bas zijn rare muteer dingen</a>
+                            <a href="./prodmuteer.php">Product muteer</a>
+                            <a href="./beheer_rechten.php">Beheer rechten</a>
+                            <a href="./klanten.php">Overzicht klanten</a>
                         </div>
                     </div>
                 </div>

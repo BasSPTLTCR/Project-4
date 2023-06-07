@@ -13,17 +13,17 @@
     <?php
         session_start();
 
+        
+        include_once "./includes/nav.php";
+        
+        require 'db-connection.php';
+        
         if ($_SESSION['admin'] == 1) {
             echo "Welkom ".$_SESSION['klant_naam']."";
         } else {
             header('location: index.php');
             exit();
         }
-
-        include_once "./includes/nav.php";
-        
-        require 'db-connection.php';
-
 
         // $email = "";
         // ^ dit als voorbeeld zonder inlog gegevens
