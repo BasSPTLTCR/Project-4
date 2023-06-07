@@ -9,6 +9,7 @@
 </head>
 <body>
     <?php
+    session_start();
     include_once "./includes/nav.php";
     ?>
     <main class="indexhome">

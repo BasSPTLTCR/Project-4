@@ -16,9 +16,8 @@
         if ($_SESSION['admin'] == 1) {
             echo "Welkom ".$_SESSION['klant_naam']."";
         } else {
-            // header('location: index.php');
-            // exit();
-            echo "Je bent niet ingelogt!";
+            header('location: index.php');
+            exit();
         }
 
         include_once "./includes/nav.php";

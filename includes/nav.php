@@ -51,6 +51,7 @@
                         <a href="#">Prod prijs -lev</a>
                         <a href="#">Prod prijs - cat</a>
                         <a href="#">Tot prijs - aankoop</a>
+                        <a href="./klanten.php">Klanten</a>
                     </div>
                 </div>
             </div>

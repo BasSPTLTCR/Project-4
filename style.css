@@ -222,7 +222,7 @@
 footer {
   height: 10vh;
   background-color: rgb(46, 46, 46);
-  color: rgb(100, 100, 100)
+  color: rgb(100, 100, 100);
   width: 100vw;
   display: flex;
   align-items: center;
