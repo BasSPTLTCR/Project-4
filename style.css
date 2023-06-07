@@ -172,6 +172,14 @@
 
 /* muteer product */
 
+.active {
+  background-color: green;
+}
+
+.inactive {
+  background-color: red;
+}
+
 .prodmuteer {
   border-collapse: collapse;
   border: solid black 1px;
@@ -182,7 +190,7 @@
 }
 
 .first {
-  width: 7rem;
+  width: 10rem;
 }
 
 .second {
@@ -201,17 +209,248 @@
   padding-left: 2rem;
 }
 
-.submit{
+.submit {
   display: flex;
   justify-content: center;
+}
+
+.signupBox {
+  display: flex ;
 }
 
 /* Footer */
 footer {
   height: 10vh;
-  background-color: gray;
+  background-color: rgb(46, 46, 46);
+  color: rgb(100, 100, 100);
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Eco Vriendelijkheid */
+
+.ecoHeader,
+.levHeader {
+  width: 50vw;
+  margin-left: 2rem;
+}
+
+.ecoText,
+.levText {
+  width: 50vw;
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+/* Login en Sign up */
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  background: white;
+  border: solid rgb(45, 45, 45) 2px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+}
+.center h1 {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver;
+}
+.center form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+form .txt_field, form .txt_field1 {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+.txt_field input {
+  width: 320px;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+.txt_field label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.txt_field span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: 0.5s;
+}
+.txt_field input:focus ~ label,
+.txt_field input:valid ~ label {
+  top: -5px;
+  color: #2691d9;
+}
+.txt_field input:focus ~ span::before,
+.txt_field input:valid ~ span::before {
+  width: 100%;
+}
+.pass {
+  margin: -5px 0 20px 5px;
+  color: #a6a6a6;
+  cursor: pointer;
+}
+.pass:hover {
+  text-decoration: underline;
+}
+.loginSubmit {
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2691d9;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+.loginSubmit:hover {
+  border-color: #2691d9;
+  transition: 0.5s;
+}
+.signup_link {
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #666666;
+}
+.signup_link a {
+  color: #2691d9;
+  text-decoration: none;
+}
+.signup_link a:hover {
+  text-decoration: underline;
+}
+
+form .txt_field1 {
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+.txt_field1 input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+.txt_field1 label {
+  position: absolute;
+  top: 45%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+.txt_field1 span::before {
+  content: "";
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: 0.5s;
+}
+.txt_field1 input:focus ~ label,
+.txt_field1 input:valid ~ label {
+  top: -5px;
+  color: #2691d9;
+}
+.txt_field1 input:focus ~ span::before,
+.txt_field1 input:valid ~ span::before {
+  width: 100%;
+}
+
+.txt_container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.txt_field2 {
+  width: 420px;
+  background-color: none;
+  height: 40px;
+  border: none;
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+
+.txt_field2 option {
+  position: absolute;
+  top: 45%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.center1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  background: white;
+  border: solid rgb(45, 45, 45) 2px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.05);
+}
+.center1 h1 {
+  text-align: center;
+  padding: 20px 0;
+  border-bottom: 1px solid silver;
+}
+.center1 form {
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.l {
+  width: 100vw;
+  height: 100vh;
+}
+
+.normal {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  background-image: url(./images/bread04.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }

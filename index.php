@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="nl"> 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,7 @@
 </head>
 <body>
     <?php
-    include_once "./includes/nav.html";
+    include_once "./includes/nav.php";
     ?>
     <main class="indexhome">
         <div class="indextext">
@@ -19,7 +18,7 @@
                 aliquid laboriosam porro nam officiis sequi suscipit explicabo soluta sit labore.</p>
             <div class="container">
                 <input type="text" class="email-input" placeholder="What are you looking for?">
-                <button type="submit" class="submit-button">Submit</button>
+                <a href="./normal.php"><button type="submit" class="submit-button">Submit</button></a>
             </div>
         </div>
         <div id="slideshow">
@@ -42,5 +41,5 @@
         setInterval(slide, 3000);
     </script>
 </body>
-
 </html>
+	

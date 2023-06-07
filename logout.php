@@ -2,5 +2,6 @@
 session_start();
 unset($_SESSION['klant_id']);
 unset($_SESSION['klant_email']);
-header("Location:login.php");
+unset($_SESSION['admin']);
+header("Location:index.php");
 ?>
