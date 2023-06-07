@@ -37,7 +37,7 @@
             // Zoek de klant-gegevens met de opgegeven e-mail
             $query = "SELECT * FROM client WHERE email = :email";
             $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':email', $email);
+            $stmt->bindValue(':email', $email);
             $stmt->execute();
             $klant = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -80,13 +80,29 @@
     }
     ?>
 
-    <form action="" method="POST">
-        <input type="email" name="email" placeholder="Email" required />
-        <input type="password" name="wachtwoord" placeholder="Password" required />
-        <button type="submit" value="Inloggen">Sign in</button>
-    </form>
-
+<div class="center">
+      <h1>Login</h1>
+      <form method="POST">
+        <div class="txt_field">
+          <input type="email" name="email" required>
+          <span></span>
+        <label>Email</label>
+        </div>
+        <div class="txt_field">
+          <input type="password" name="wachtwoord" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+        <input class="loginSubmit" type="submit" value="Inloggen">
+        <div class="signup_link">
+          Not a member? <a href="./signup.php">Signup</a>
+        </div>
+      </form>
+    </div>
 
 </body>
 
 </html>
+
+
