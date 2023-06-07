@@ -40,6 +40,7 @@
 
                     </div>
                     <div>
+                    <a href="./bestelling_wijzigen.php">Bestelling wijzigen</a>
                         <a href="./product_wijzigen.php">Product wijzigen</a>
                         <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
                         <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
