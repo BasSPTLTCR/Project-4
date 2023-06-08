@@ -83,7 +83,7 @@
                     echo "Wachtwoord klopt niet";
                 }
             } else {
-                echo "Email is al in gebruik.";
+                echo "<p class='error'>Email is al in gebruik.</p>";
             }
         } catch (PDOException $e) {
             echo "Fout bij verbinden met de database: " . $e->getMessage();

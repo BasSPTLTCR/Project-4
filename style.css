@@ -440,6 +440,13 @@ form .txt_field1 {
   box-sizing: border-box;
 }
 
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
 .l {
   width: 100vw;
   height: 100vh;
