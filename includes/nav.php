@@ -47,6 +47,7 @@
                             <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
                             <a href="./product_wijzigen.php">Product wijzigen</a>
                             <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
+                            <a href="./edit_current_user.php">Klantgegevens wijzigen</a>
                             <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
                             <a href="#">Lev per land</a>
                             <a href="./show_catperproduct.php">Prod per cat</a>

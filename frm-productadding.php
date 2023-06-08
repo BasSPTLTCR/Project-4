@@ -21,7 +21,7 @@
     try {
         $fullQuery = $conn->prepare("SELECT category.`name` AS catname FROM `category` ORDER BY `name` ASC;");
         $oneQuery = $conn->prepare("SELECT supplier.`company` AS supname FROM `supplier` ORDER BY `company` ASC");
-    } catch (PDOExeption $e) {
+    } catch (PDOException $e) {
         die("Fout bij verbinden met database: " . $e->getMessage());
     }
     #3 querydoen
