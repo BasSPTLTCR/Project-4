@@ -58,7 +58,7 @@
             $statement->execute();
             
             // Fetch the result
-            $countEmail = $statement->rowCount();
+            $countEmail = $statement->fetchColumn();
             
             if ($countEmail >= 0) {
                 if ($filteredPassword == $filteredPasswordVeri) {
@@ -91,7 +91,7 @@
     }
 
     try {
-        $oneQuery = $conn->prepare("SELECT name AS 'countryname' FROM `country`;");
+        $oneQuery = $conn->prepare("SELECT name AS countryname FROM `country`;");
     } catch(PDOException $e) {
         die("Fout bij verbinden met de database: " . $e->getMessage());
     }
@@ -102,57 +102,30 @@
     ?>
 
 
-<div class="center1">
-    <h1>Sign Up</h1>
-    <form method="POST">
-        <div class="txt_field">
-            <input type="text" name="firstname" required>
-            <span></span>
-            <label>First Name</label>
-        </div>
-        <div class="txt_field">
-            <input type="text" name="lastname" required>
-            <span></span>
-            <label>Last Name</label>
-        </div>
-        <div class="txt_field">
-            <input type="email" name="email" required>
-            <span></span>
-            <label>Email</label>
-        </div>
-        <div class="txt_field">
-            <input type="password" name="password" required>
-            <span></span>
-            <label>Password</label>
-        </div>
-        <div class="txt_field">
-            <input type="password" name="passwordVerify" required>
-            <span></span>
-            <label>Verify Password</label>
-        </div>
-        <div class="txt_container">
-            <div class="txt_field1">
-                <input type="text" name="address" required>
+    <div class="center1">
+        <h1>Sign Up</h1>
+        <form method="POST">
+            <div class="txt_field">
+                <input type="text" name="firstname" required>
                 <span></span>
-                <label>Adress</label>
+                <label>First Name</label>
             </div>
-            <div class="txt_field1">
-                <input type="text" name="zipcode" required>
+            <div class="txt_field">
+                <input type="text" name="lastname" required>
                 <span></span>
-                <label>Zipcode</label>
+                <label>Last Name</label>
             </div>
-        </div>
-        <div class="txt_container">
-            <div class="txt_field1">
-                <input type="text" name="city" required>
+            <div class="txt_field">
+                <input type="email" name="email" required>
                 <span></span>
-                <label>City</label>
+                <label>Email</label>
             </div>
-            <div class="txt_field1">
-                <input type="text" name="state" required>
+            <div class="txt_field">
+                <input type="password" name="password" required>
                 <span></span>
-                <label>State</label>
+                <label>Password</label>
             </div>
+<<<<<<< HEAD
         </div>
         <select class="txt_field2" name="country" id="countryname">
             <option value="">Land</option>
@@ -168,8 +141,52 @@
         </div>
     </form>
 </div>
+=======
+            <div class="txt_field">
+                <input type="password" name="passwordVerify" required>
+                <span></span>
+                <label>Verify Password</label>
+            </div>
+            <div class="txt_container">
+                <div class="txt_field1">
+                    <input type="text" name="address" required>
+                    <span></span>
+                    <label>Address</label>
+                </div>
+                <div class="txt_field1">
+                    <input type="text" name="zipcode" required>
+                    <span></span>
+                    <label>Zipcode</label>
+                </div>
+            </div>
+            <div class="txt_container">
+                <div class="txt_field1">
+                    <input type="text" name="city" required>
+                    <span></span>
+                    <label>City</label>
+                </div>
+                <div class="txt_field1">
+                    <input type="text" name="state" required>
+                    <span></span>
+                    <label>State</label>
+                </div>
+            </div>
+            <select class="txt_field2" name="country" id="countryname">
+                <option value="">Land</option>
+                <?php
+                foreach ($result1 as $row) {
+                    echo "<option>" . $row["countryname"] . "</option>";
+                }
+                ?>
+            </select><br>
+            <input class="loginSubmit" type="submit" name="register" value="Account Maken">
+            <div class="signup_link">
+                Already have an account? <a href="./login.php">Sign in</a>
+            </div>
+        </form>
+    </div>
+>>>>>>> f461dcc3f9c2a2edc50a57e428df8f60da8d2b82
 
 </body>
 
 </html>
-
