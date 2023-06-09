@@ -15,11 +15,10 @@
 
         require 'db-connection.php'; // Zorg ervoor dat het pad naar db-connection.php correct is
 
-        if ($_SESSION['admin'] == 1) {
-            echo "Welkom ".$_SESSION['klant_naam']."";
-            $userEmail = $_SESSION['klant_email'];
-        } else {
-            echo "Je bent niet ingelogt!";
+        if ($_SESSION['admin'] != 1) {
+            echo "Je bent geen admin!";
+            header('location: index.php');
+            exit; // Voeg 'exit' toe na het doorsturen met 'header' om de rest van de code te stoppen
         }
 
         if (isset($_POST["adminDel"])) {
