@@ -32,7 +32,8 @@
         foreach ($tableData as $row) {
             echo "<tr>";
             echo "<td>" . $row['name'] . "</td>";
-            echo "<td>" . $row['code'] . "</td>";   
+            echo "<td>" . $row['code'] . "</td>";
+            echo "<td><a href=\"delete_country.php?id=".$row['idcountry']."\">Verwijderen</a></td>";
             echo "</tr>";
         }
 
