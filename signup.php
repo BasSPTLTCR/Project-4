@@ -102,11 +102,42 @@
     ?>
 
 
-    <div class="center1">
-        <h1>Sign Up</h1>
-        <form method="POST">
-            <div class="txt_field">
-                <input type="text" name="firstname" required>
+<div class="center1">
+    <h1>Sign Up</h1>
+    <form method="POST">
+        <div class="txt_field">
+            <input type="text" name="firstname" required>
+            <span></span>
+            <label>First Name</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" name="lastname" required>
+            <span></span>
+            <label>Last Name</label>
+        </div>
+        <div class="txt_field">
+            <input type="email" name="email" required>
+            <span></span>
+            <label>Email</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="password" required>
+            <span></span>
+            <label>Password</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" name="passwordVerify" required>
+            <span></span>
+            <label>Verify Password</label>
+        </div>
+        <div class="txt_field">
+            <input type="telephone" name="telephone" required>
+            <span></span>
+            <label>Telephone</label>
+        </div>
+        <div class="txt_container">
+            <div class="txt_field1">
+                <input type="text" name="address" required>
                 <span></span>
                 <label>First Name</label>
             </div>
