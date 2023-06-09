@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,6 @@
     <title>Product verwijderen</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <?php
     include_once "./includes/nav.php";
@@ -17,69 +16,68 @@
     $username = 'root';
     $password = '';
 
-    if (isset($_GET['delete'])) {
-        $productId = $_GET['delete'];
-
-        try {
-            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            // Check if the product is associated with any orders
-            $orderCheckStmt = $pdo->prepare('SELECT * FROM purchaseline WHERE productid = ?');
-            $orderCheckStmt->execute([$productId]);
-            $associatedOrders = $orderCheckStmt->fetchAll(PDO::FETCH_ASSOC);
-
-            if (count($associatedOrders) > 0) {
-                // Product is associated with one or more orders, cannot delete
-                echo "Cannot delete the product as it is associated with one or more orders.";
-            } else {
-                // Delete the product from the database
-                $deleteStmt = $pdo->prepare('DELETE FROM product WHERE ID = ?');
-                $deleteStmt->execute([$productId]);
-
-                // Output success message
-                echo "Product deleted successfully.";
-            }
-        } catch (PDOException $e) {
-            echo "Deletion failed: " . $e->getMessage();
-        }
-    }
+if (isset($_GET['delete'])) {
+    $productId = $_GET['delete'];
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Retrieve products that are not associated with any orders
-        $query = "SELECT * FROM product WHERE ID NOT IN (SELECT DISTINCT productid FROM purchaseline)";
-        $stmt = $pdo->query($query);
-        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // Check if the product is associated with any orders
+        $orderCheckStmt = $pdo->prepare('SELECT * FROM purchaseline WHERE productid = ?');
+        $orderCheckStmt->execute([$productId]);
+        $associatedOrders = $orderCheckStmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Display the list of products
-        echo "<h1>Products Not Associated with Orders</h1>";
-        if (count($products) > 0) {
-            echo "<ul>";
-            foreach ($products as $product) {
-                echo "<li>";
-                echo $product['productname'];
-                echo " <button onclick='confirmDelete(" . $product['ID'] . ")'>Delete</button>";
-                echo "</li>";
-            }
-            echo "</ul>";
+        if (count($associatedOrders) > 0) {
+            // Product is associated with one or more orders, cannot delete
+            echo "Cannot delete the product as it is associated with one or more orders.";
         } else {
-            echo "<p>No products found.</p>";
+            // Delete the product from the database
+            $deleteStmt = $pdo->prepare('DELETE FROM product WHERE ID = ?');
+            $deleteStmt->execute([$productId]);
+
+            // Output success message
+            echo "Product deleted successfully.";
         }
     } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
+        echo "Deletion failed: " . $e->getMessage();
     }
-    ?>
+}
 
-    <script>
-        function confirmDelete(productId) {
-            if (confirm("Are you sure you want to delete this product?")) {
-                window.location.href = "?delete=" + productId;
-            }
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Retrieve products that are not associated with any orders
+    $query = "SELECT * FROM product WHERE ID NOT IN (SELECT DISTINCT productid FROM purchaseline INNER JOIN purchase ON purchaseline.purchaseid = purchase.ID WHERE purchase.delivered = 1)";
+    $stmt = $pdo->query($query);
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Display the list of products
+    echo "<h1>Products Not Associated with Orders</h1>";
+    if (count($products) > 0) {
+        echo "<ul>";
+        foreach ($products as $product) {
+            echo "<li>";
+            echo $product['productname'];
+            echo " <button onclick='confirmDelete(" . $product['ID'] . ")'>Delete</button>";
+            echo "</li>";
         }
-    </script>
-</body>
+        echo "</ul>";
+    } else {
+        echo "<p>No products found.</p>";
+    }
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+?>
 
+<script>
+    function confirmDelete(productId) {
+        if (confirm("Are you sure you want to delete this product?")) {
+            window.location.href = "?delete=" + productId;
+        }
+    }
+</script>
+</body>
 </html>
