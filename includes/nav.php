@@ -44,7 +44,7 @@
                             <a href="./frm-productadding.php">Product toevoegen</a>
                             <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
                             <a href="./landen_toevoegen.php">Land toevoegen</a>
-                            <a href="./landen_verwijderen.php">Land verwijderen</a>
+                            <a href="./show_delete_country.php">Land verwijderen</a>
                             <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
                             <a href="./product_wijzigen.php">Product wijzigen</a>
                             <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
