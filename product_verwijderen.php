@@ -1,71 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>product verwijderen</title>
+    <title>Product verwijderen</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<?php
-// database connection
-include_once "./includes/nav.php";
+    <?php
+    include_once "./includes/nav.php";
+    $host = 'localhost';
+    $dbname = 'befs';
+    $username = 'root';
+    $password = '';
 
-$host = 'localhost';
-$dbname = 'befs';
-$username = 'root';
-$password = '';
+    if (isset($_GET['delete'])) {
+        $productId = $_GET['delete'];
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // show error on screen
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Fout bij verbinden met de database: " . $e->getMessage());
-}
+        try {
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Verify that a POST request was made to change the data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ontvangen gegevens van het formulier
-    $ID = $_POST["ID"];
+            // Check if the product is associated with any orders
+            $orderCheckStmt = $pdo->prepare('SELECT * FROM purchaseline WHERE productid = ?');
+            $orderCheckStmt->execute([$productId]);
+            $associatedOrders = $orderCheckStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($associatedOrders) > 0) {
+                // Product is associated with one or more orders, cannot delete
+                echo "Cannot delete the product as it is associated with one or more orders.";
+            } else {
+                // Delete the product from the database
+                $deleteStmt = $pdo->prepare('DELETE FROM product WHERE ID = ?');
+                $deleteStmt->execute([$productId]);
+
+                // Output success message
+                echo "Product deleted successfully.";
+            }
+        } catch (PDOException $e) {
+            echo "Deletion failed: " . $e->getMessage();
+        }
+    }
 
     try {
-        // verify if product is not in a order
-        $sql_check = "SELECT COUNT(*) AS order_count FROM purchaseline WHERE productid = :ID";
-        $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bindParam(':ID', $ID);
-        $stmt_check->execute();
-        $row = $stmt_check->fetch(PDO::FETCH_ASSOC);
-        $orderCount = $row['order_count'];
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        if ($orderCount == 0) {
-            // Product isn't orderd so it can be deleted
-            $sql_delete = "DELETE FROM product WHERE ID = :ID";
-            $stmt_delete = $conn->prepare($sql_delete);
-            $stmt_delete->bindParam(':ID', $ID);
-            $stmt_delete->execute();
+        // Retrieve products that are not associated with any orders
+        $query = "SELECT * FROM product WHERE ID NOT IN (SELECT DISTINCT productid FROM purchaseline)";
+        $stmt = $pdo->query($query);
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            echo "Product succesvol verwijderd.";
+        // Display the list of products
+        echo "<h1>Products Not Associated with Orders</h1>";
+        if (count($products) > 0) {
+            echo "<ul>";
+            foreach ($products as $product) {
+                echo "<li>";
+                echo $product['productname'];
+                echo " <button onclick='confirmDelete(" . $product['ID'] . ")'>Delete</button>";
+                echo "</li>";
+            }
+            echo "</ul>";
         } else {
-            echo "Het product komt voor in lopende bestellingen en kan niet worden verwijderd.";
+            echo "<p>No products found.</p>";
         }
-    } catch(PDOException $e) {
-        echo "Fout bij het verwijderen van het product: " . $e->getMessage();
+    } catch (PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
     }
-}
+    ?>
 
-// close database connection
-$conn = null;
-?>
-
-
-    <h2>Product verwijderen</h2>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="ID">Product ID:</label>
-        <input type="text" name="ID" required><br>
-
-        <input type="submit" value="Product verwijderen">
-    </form>
+    <script>
+        function confirmDelete(productId) {
+            if (confirm("Are you sure you want to delete this product?")) {
+                window.location.href = "?delete=" + productId;
+            }
+        }
+    </script>
 </body>
+
 </html>

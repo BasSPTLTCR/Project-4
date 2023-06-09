@@ -1,71 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>klant verwijderen</title>
+    <title>Klant verwijderen</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<?php
-// database connection
-include_once "./includes/nav.php";
+    <?php
+    include_once "./includes/nav.php";
+    $host = 'localhost';
+    $dbname = 'befs';
+    $username = 'root';
+    $password = '';
 
-$host = 'localhost';
-$dbname = 'befs';
-$username = 'root';
-$password = '';
+    if (isset($_GET['delete'])) {
+        $customerId = $_GET['delete'];
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // show error on screen
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    die("Fout bij verbinden met de database: " . $e->getMessage());
-}
+        try {
+            $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Verify that a POST request was made to change the data
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ontvangen gegevens van het formulier
-    $id = $_POST["id"];
+            // Check if the customer has any purchases
+            $purchaseCheckStmt = $pdo->prepare('SELECT * FROM purchase WHERE clientid = ?');
+            $purchaseCheckStmt->execute([$customerId]);
+            $associatedPurchases = $purchaseCheckStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (count($associatedPurchases) > 0) {
+                // Customer has one or more purchases, cannot delete
+                echo "Cannot delete the customer as they have one or more purchases.";
+            } else {
+                // Delete the customer from the database
+                $deleteStmt = $pdo->prepare('DELETE FROM client WHERE id = ?');
+                $deleteStmt->execute([$customerId]);
+
+                // Output success message
+                echo "Customer deleted successfully.";
+            }
+        } catch (PDOException $e) {
+            echo "Deletion failed: " . $e->getMessage();
+        }
+    }
 
     try {
-        // Verify if there is a active order
-        $sql_check = "SELECT COUNT(*) AS order_count FROM purchase WHERE clientid = :id";
-        $stmt_check = $conn->prepare($sql_check);
-        $stmt_check->bindParam(':id', $id);
-        $stmt_check->execute();
-        $row = $stmt_check->fetch(PDO::FETCH_ASSOC);
-        $orderCount = $row['order_count'];
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        if ($orderCount == 0) {
-            // no active order so client can be deleted
-            $sql_delete = "DELETE FROM client WHERE id = :id";
-            $stmt_delete = $conn->prepare($sql_delete);
-            $stmt_delete->bindParam(':id', $id);
-            $stmt_delete->execute();
+        // Retrieve customers who do not have any purchases
+        $query = "SELECT * FROM client WHERE id NOT IN (SELECT DISTINCT clientid FROM purchase)";
+        $stmt = $pdo->query($query);
+        $customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            echo "Klant succesvol verwijderd.";
+        // Display the list of customers in a table
+        echo "<h1>Customers with No Purchases</h1>";
+        if (count($customers) > 0) {
+            echo "<table>";
+            echo "<tr><th>ID</th><th>Name</th><th>Email</th><th>Action</th></tr>";
+            foreach ($customers as $customer) {
+                echo "<tr>";
+                echo "<td>" . $customer['id'] . "</td>";
+                echo "<td>" . $customer['first_name'] . " " . $customer['last_name'] . "</td>";
+                echo "<td>" . $customer['email'] . "</td>";
+                echo "<td><button onclick='confirmDelete(" . $customer['id'] . ")'>Delete</button></td>";
+                echo "</tr>";
+            }
+            echo "</table>";
         } else {
-            echo "De klant heeft actieve bestellingen en kan niet worden verwijderd.";
+            echo "<p>No customers found.</p>";
         }
-    } catch(PDOException $e) {
-        echo "Fout bij het verwijderen van de klant: " . $e->getMessage();
+    } catch (PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
     }
-}
+    ?>
 
-// disconnect database
-$conn = null;
-?>
-
-<body>
-    <h2>Klant verwijderen</h2>
-    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <label for="id">Klant ID:</label>
-        <input type="text" name="id" required><br>
-
-        <input type="submit" value="Klant verwijderen">
-    </form>
+    <script>
+        function confirmDelete(customerId) {
+            if (confirm("Are you sure you want to delete this customer?")) {
+                window.location.href = "?delete=" + customerId;
+            }
+        }
+    </script>
 </body>
+
 </html>

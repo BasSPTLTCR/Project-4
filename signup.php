@@ -162,7 +162,7 @@
             }
             ?>
         </select><br>
-        <input class="loginSubmit" type="submit" value="Account Maken">
+        <input class="loginSubmit" type="submit" name="register" value="Account Maken">
         <div class="signup_link">
             Already have an account? <a href="./login.php">Sign in</a>
         </div>

@@ -49,6 +49,7 @@
                             <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
                             <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
                             <a href="./categorie_verwijderen.php">Categorie verwijderen</a>
+                            <a href="./klant_verwijderen.php">Klant verwijderen</a>
                             <a href="#">Lev per land</a>
                             <a href="./show_catperproduct.php">Prod per cat</a>
                             <a href="./show_aankoopperklant.php">Aankoop per klant</a>
