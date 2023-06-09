@@ -54,40 +54,40 @@
         $currentUser = $statement->fetch(PDO::FETCH_ASSOC);
     ?>
         <form method="POST">
-            <div class="txt_field">
+            <div">
                 <input type="text" name="firstname" value="<?php echo $currentUser['first_name'] ?>" required>
                 <span></span>
                 <label>First Name</label>
             </div>
-            <div class="txt_field">
+            <div>
                 <input type="text" name="lastname" value="<?php echo $currentUser['last_name'] ?>" required>
                 <span></span>
                 <label>Last Name</label>
             </div>
-            <div class="txt_container">
-                <div class="txt_field1">
+            <div>
+                <div>
                     <input type="text" name="address" value="<?php echo $currentUser['address'] ?>" required>
                     <span></span>
                     <label>Address</label>
                 </div>
-                <div class="txt_field1">
+                <div>
                     <input type="text" name="zipcode" value="<?php echo $currentUser['zipcode'] ?>" required>
                     <span></span>
                     <label>Zipcode</label>
                 </div>
             </div>
-            <div class="txt_container">
-                <div class="txt_field1">
+            <div>
+                <div>
                     <input type="text" name="city" value="<?php echo $currentUser['city'] ?>" required>
                     <span></span>
                     <label>City</label>
                 </div>
-                <div class="txt_field1">
+                <div >
                     <input type="text" name="state" value="<?php echo $currentUser['state'] ?>" required>
                     <span></span>
                     <label>State</label>
                 </div>
-                <div class="txt_field1">
+                <div>
                     <input type="text" name="telephone" value="<?php echo $currentUser['telephone'] ?>" required>
                     <span></span>
                     <label>Telephone number</label>
