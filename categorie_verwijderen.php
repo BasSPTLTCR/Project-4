@@ -49,15 +49,18 @@
                 echo "Categorie verwijderen geannuleerd.";
             }
         }
+    } catch (PDOException $e) {
+        die("Fout bij verbinden met de database: " . $e->getMessage());
     }
-    
+
     try {
         $sql = $conn->prepare("SELECT category.ID, category.name, COUNT(purchase.delivered) AS not_delivered
-            FROM category
-            LEFT JOIN product ON category.ID = product.categoryid
-            LEFT JOIN purchaseline ON product.ID = purchaseline.productid
-            LEFT JOIN purchase ON purchaseline.purchaseid = purchase.ID AND (purchase.delivered = 0 OR purchase.delivered IS NULL)
-            GROUP BY category.ID, category.name");
+        FROM category
+        INNER JOIN product ON category.ID = product.categoryid
+        INNER JOIN purchaseline ON product.ID = purchaseline.productid
+        INNER JOIN purchase ON purchaseline.purchaseid = purchase.ID
+        WHERE purchase.delivered = 1
+        GROUP BY category.ID, category.name;");
         $sql->execute();
 
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
@@ -66,26 +69,26 @@
     }
     ?>
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Naam</th>
-            <th></th>
-        </tr>
-        <?php
-        foreach ($result as $rij) {
-            echo "<tr><td>" . $rij["category_id"] . "</td>";
-            echo "<td>" . $rij["nameCat"] . "</td>";
-            echo "<td>";
-            echo "<form method='post' action=''>";
-            echo "<input type='hidden' name='catID' value='" . $rij["category_id"] . "'>";
-            echo "<input type='hidden' name='catName' value='" . $rij["nameCat"] . "'>";
-            echo "<button type='submit'>Verwijder</button>";
-            echo "</form>";
-            echo "</td></tr>";
-        }
-        ?>
-    </table>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Naam</th>
+        <th></th>
+    </tr>
+    <?php
+    foreach ($result as $rij) {
+        echo "<tr><td>" . $rij["ID"] . "</td>";
+        echo "<td>" . $rij["name"] . "</td>";
+        echo "<td>";
+        echo "<form method='post' action=''>";
+        echo "<input type='hidden' name='catID' value='" . $rij["ID"] . "'>";
+        echo "<input type='hidden' name='catName' value='" . $rij["name"] . "'>";
+        echo "<button type='submit'>Verwijder</button>";
+        echo "</form>";
+        echo "</td></tr>";
+    }
+    ?>
+</table>
 </body>
 
 </html>
