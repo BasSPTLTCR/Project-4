@@ -36,14 +36,12 @@
     }
 
     try {
-        $sql = $conn->prepare("
-            SELECT category.ID, category.name, COUNT(purchase.delivered) AS not_delivered
+        $sql = $conn->prepare("SELECT category.ID, category.name, COUNT(purchase.delivered) AS not_delivered
             FROM category
             LEFT JOIN product ON category.ID = product.categoryid
             LEFT JOIN purchaseline ON product.ID = purchaseline.productid
             LEFT JOIN purchase ON purchaseline.purchaseid = purchase.ID AND (purchase.delivered = 0 OR purchase.delivered IS NULL)
-            GROUP BY category.ID, category.name
-            ");
+            GROUP BY category.ID, category.name");
         $sql->execute();
 
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
