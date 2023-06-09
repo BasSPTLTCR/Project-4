@@ -11,48 +11,89 @@
 
 <body>
     <?php
-        session_start();
+    session_start();
 
-        if ($_SESSION['admin'] == 1) {
-            echo "Welkom ".$_SESSION['klant_naam']."";
-        } else {
-            // header('location: index.php');
-            // exit();
-            echo "Je bent niet ingelogt!";
-        }
+    include_once "./includes/nav.php";
 
+    require 'db-connection.php';
 
-        include_once "./includes/nav.php";
-        
-        require 'db-connection.php';
+    if ($_SESSION['admin'] == 1) {
+        echo "Welkom " . $_SESSION['klant_naam'] . "";
+    } else {
+        header('location: index.php');
+        exit();
+    }
 
-
-        // $email = "";
-        // ^ dit als voorbeeld zonder inlog gegevens
-        // $email = "sem@piekar.nl";
-        // ^ deze is admin
-        // $email = "csalzenbs@ehow.com";
-        // ^ deze is geen admin
-        
-
-
-
-
+    try {
         if (isset($_POST["active"])) {
-            // $productId = $_POST["active"];
-            session_abort();
-            // $query = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
-            // $query->bindValue(':productId', $productId);
-            // $query->execute();
+            $productId = $_POST["active"];
+            $productName = $_POST["productName"];
+            // Stap 1: Toon bevestigingsbericht en verwijderingsformulier
+            echo "Weet je zeker dat je " . $productName . " actief wil zetten?";
+            echo "<br>";
+            echo '<form method="post">';
+            echo '<input type="hidden" name="productId" value="' . $productId . '">';
+            echo '<input type="submit" name="confirmActive" value="Ja">';
+            echo '<input type="submit" name="confirmActive" value="Nee">';
+            echo '</form>';
+        } elseif (isset($_POST["confirmActive"])) {
+            if ($_POST["confirmActive"] == "Ja") {
+                // Stap 2: Voer categorie verwijdering uit
+                $productId = $_POST["productId"];
+                $deleteStatement = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
+                $deleteStatement->bindValue(':productId', $productId);
+                $deleteStatement->execute();
+                echo "Product succesvol geactiveerd!";
+            } else {
+                // Stap 3: Verwijdering geannuleerd
+                echo "Product actief zetten geannuleerd.";
+            }
         }
-        
+
         if (isset($_POST["inactive"])) {
             $productId = $_POST["inactive"];
-            
-            $query = $conn->prepare("UPDATE `product` SET `active` = 0 WHERE `ID` = :productId;");
-            $query->bindValue(':productId', $productId);
-            $query->execute();
+            $productName = $_POST["productName"];
+            // Stap 1: Toon bevestigingsbericht en verwijderingsformulier
+            echo "Weet je zeker dat je " . $productName . " inactief wil zetten?";
+            echo "<br>";
+            echo '<form method="post">';
+            echo '<input type="hidden" name="productId" value="' . $productId . '">';
+            echo '<input type="submit" name="confirmInactive" value="Ja">';
+            echo '<input type="submit" name="confirmInactive" value="Nee">';
+            echo '</form>';
+        } elseif (isset($_POST["confirmInactive"])) {
+            if ($_POST["confirmInactive"] == "Ja") {
+                // Stap 2: Voer categorie verwijdering uit
+                $productId = $_POST["productId"];
+                $deleteStatement = $conn->prepare("UPDATE `product` SET `active` = 0 WHERE `ID` = :productId;");
+                $deleteStatement->bindValue(':productId', $productId);
+                $deleteStatement->execute();
+                echo "Product succesvol gedeactiveerd!";
+            } else {
+                // Stap 3: Verwijdering geannuleerd
+                echo "Product inactief zetten geannuleerd.";
+            }
         }
+    
+        } catch (PDOException $e) {
+            die("Fout bij verbinden met de database: " . $e->getMessage());
+        }
+
+        // if (isset($_POST["active"])) {
+        //     $productId = $_POST["active"];
+            
+        //     $query = $conn->prepare("UPDATE `product` SET `active` = 1 WHERE `ID` = :productId;");
+        //     $query->bindValue(':productId', $productId);
+        //     $query->execute();
+        // }
+        
+        // if (isset($_POST["inactive"])) {
+        //     $productId = $_POST["inactive"];
+            
+        //     $query = $conn->prepare("UPDATE `product` SET `active` = 0 WHERE `ID` = :productId;");
+        //     $query->bindValue(':productId', $productId);
+        //     $query->execute();
+        // }
         
         try {
             $query = $conn->prepare("SELECT * FROM `product`;");
@@ -79,7 +120,8 @@
                 $activeClass = ($rij["active"] == 1) ? "active" : "inactive";
                 echo "<form method='post' class='muteer-prod'>";
                 echo "<tr>";
-                echo "<td class='" . $activeClass . "'><button type='submit' name='active' value='" . $rij["ID"] . " onclick='return confirm(\"Are you sure you want to activate this product?\")'>Active</button>";
+                echo "<td class='" . $activeClass . "'><input type='hidden' name='productName' value " . $rij["productname"] . ">";
+                echo "<button type='submit' name='active' value='" . $rij["ID"] . " onclick='return confirm(\"Are you sure you want to activate this product?\")'>Active</button>";
                 echo "<button type='submit' name='inactive' value='" . $rij["ID"] . " onclick='return confirm(\"Are you sure you want to Deactivate this product?\")'>Inactive</button></td>";
                 echo "<td class='" . $activeClass . "'>". $rij["productname"] ."</td>";
                 echo "<td class='" . $activeClass . "'>€". $rij["price"] ."</td>";

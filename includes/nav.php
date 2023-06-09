@@ -48,6 +48,7 @@
                             <a href="./product_wijzigen.php">Product wijzigen</a>
                             <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
                             <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
+                            <a href="./categorie_verwijderen.php">Categorie verwijderen</a>
                             <a href="#">Lev per land</a>
                             <a href="./show_catperproduct.php">Prod per cat</a>
                             <a href="./show_aankoopperklant.php">Aankoop per klant</a>
@@ -56,8 +57,9 @@
                             <a href="#">Prod prijs -lev</a>
                             <a href="#">Prod prijs - cat</a>
                             <a href="#">Tot prijs - aankoop</a>
-                            <a href="#">Bas zijn rare muteer dingen</a>
-                            <a href="#">Bas zijn rare muteer dingen</a>
+                            <a href="./prodmuteer.php">Product muteer</a>
+                            <a href="./beheer_rechten.php">Beheer rechten</a>
+                            <a href="./klanten.php">Overzicht klanten</a>
                         </div>
                     </div>
                 </div>
