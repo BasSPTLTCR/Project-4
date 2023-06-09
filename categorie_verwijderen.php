@@ -20,20 +20,35 @@
     if ($_SESSION['admin'] != 1) {
         echo "Je bent geen admin!";
         header('location: index.php');
-        exit; // Add exit after header redirect to stop executing the rest of the code
+        exit; // Voeg 'exit' toe na het doorsturen met 'header' om de rest van de code te stoppen
     }
 
-    if (isset($_POST["catDel"])) {
-        $categoryID = $_POST["catDel"];
-        try {
-            $deleteStatement = $conn->prepare("DELETE FROM category WHERE ID = :categoryID");
-            $deleteStatement->bindParam(':categoryID', $categoryID);
-            $deleteStatement->execute();
-            echo "Categorie succesvol verwijderd!";
-        } catch (PDOException $e) {
-            die("Fout bij verbinden met de database: " . $e->getMessage());
+    try {
+        if (isset($_POST["catID"])) {
+            $catID = $_POST["catID"];
+            $catName = $_POST["catName"];
+
+            // Stap 1: Toon bevestigingsbericht en verwijderingsformulier
+            echo "Weet je zeker dat je de volgende categorie wilt verwijderen met de naam: " . $catName . "?";
+            echo "<br>";
+            echo '<form method="post">';
+            echo '<input type="hidden" name="categoryID" value="' . $catID . '">';
+            echo '<input type="submit" name="confirm" value="Ja">';
+            echo '<input type="submit" name="confirm" value="Nee">';
+            echo '</form>';
+        } elseif (isset($_POST["confirm"])) {
+            if ($_POST["confirm"] == "Ja") {
+                // Stap 2: Voer categorie verwijdering uit
+                $categoryID = $_POST["categoryID"];
+                $deleteStatement = $conn->prepare("DELETE FROM category WHERE ID = :categoryID");
+                $deleteStatement->bindValue(':categoryID', $categoryID);
+                $deleteStatement->execute();
+                echo "Categorie succesvol verwijderd!";
+            } else {
+                // Stap 3: Verwijdering geannuleerd
+                echo "Categorie verwijderen geannuleerd.";
+            }
         }
-    }
 
     try {
         $sql = $conn->prepare("SELECT category.ID, category.name, COUNT(purchase.delivered) AS not_delivered
@@ -45,30 +60,27 @@
         $sql->execute();
 
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
-
     } catch (PDOException $e) {
         die("Fout bij verbinden met de database: " . $e->getMessage());
     }
-
     ?>
 
     <table>
         <tr>
+            <th>ID</th>
             <th>Naam</th>
-            <th>Niet bezorgd</th>
             <th></th>
         </tr>
         <?php
         foreach ($result as $rij) {
-            echo "<tr><td>" . $rij["name"] . "</td>";
-            echo "<td>" . $rij["not_delivered"] . "</td>";
+            echo "<tr><td>" . $rij["category_id"] . "</td>";
+            echo "<td>" . $rij["nameCat"] . "</td>";
             echo "<td>";
-            if ($rij["not_delivered"] <= 0) {
-                echo "<form method='post' action=''>";
-                echo "<input type='hidden' name='catDel' value='" . $rij["ID"] . "'>";
-                echo "<button type='submit'>Verwijder</button>";
-                echo "</form>";
-            }
+            echo "<form method='post' action=''>";
+            echo "<input type='hidden' name='catID' value='" . $rij["category_id"] . "'>";
+            echo "<input type='hidden' name='catName' value='" . $rij["nameCat"] . "'>";
+            echo "<button type='submit'>Verwijder</button>";
+            echo "</form>";
             echo "</td></tr>";
         }
         ?>
