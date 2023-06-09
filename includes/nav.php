@@ -38,6 +38,7 @@
                     <button class="dropbtn">Admin</button>
                     <div class="dropdown-content dropdown-content1">
                         <div>
+                            <a href="./password-change.php">Change password</a>
                             <a href="#">Klant toevoegen</a>
                             <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
                             <a href="./frm-productadding.php">Product toevoegen</a>
