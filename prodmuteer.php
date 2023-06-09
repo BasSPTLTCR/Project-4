@@ -17,11 +17,10 @@
 
     require 'db-connection.php';
 
-    if ($_SESSION['admin'] == 1) {
-        echo "Welkom " . $_SESSION['klant_naam'] . "";
-    } else {
+    if ($_SESSION['admin'] != 1) {
+        echo "Je bent geen admin!";
         header('location: index.php');
-        exit();
+        exit; // Voeg 'exit' toe na het doorsturen met 'header' om de rest van de code te stoppen
     }
 
     try {

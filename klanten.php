@@ -17,13 +17,10 @@
 
     require 'db-connection.php';
 
-    // Check if the user is logged in as an admin
-    if ($_SESSION['admin'] == 1) {
-        echo "Welkom ".$_SESSION['klant_naam']."";
-    } else {
-        echo "Je bent niet ingelogd!";
-        // header('location: index.php');
-        // exit();
+    if ($_SESSION['admin'] != 1) {
+        echo "Je bent geen admin!";
+        header('location: index.php');
+        exit; // Voeg 'exit' toe na het doorsturen met 'header' om de rest van de code te stoppen
     }
 
     try {

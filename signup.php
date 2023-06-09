@@ -125,23 +125,6 @@
                 <span></span>
                 <label>Password</label>
             </div>
-<<<<<<< HEAD
-        </div>
-        <select class="txt_field2" name="country" id="countryname">
-            <option value="">Land</option>
-            <?php
-            foreach ($result1 as $rij) {
-                echo "<option>" . $rij["countryname"] . "</option>";
-            }
-            ?>
-        </select><br>
-        <input class="loginSubmit" type="submit" name="register" value="Account Maken">
-        <div class="signup_link">
-            Already have an account? <a href="./login.php">Sign in</a>
-        </div>
-    </form>
-</div>
-=======
             <div class="txt_field">
                 <input type="password" name="passwordVerify" required>
                 <span></span>
@@ -185,7 +168,6 @@
             </div>
         </form>
     </div>
->>>>>>> f461dcc3f9c2a2edc50a57e428df8f60da8d2b82
 
 </body>
 
