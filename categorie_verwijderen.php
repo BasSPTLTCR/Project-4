@@ -49,24 +49,19 @@
                 echo "Categorie verwijderen geannuleerd.";
             }
         }
-    } catch (PDOException $e) {
-        die("Fout bij verbinden met de database: " . $e->getMessage());
-    }
-
-    try {
-        $sql = $conn->prepare("SELECT category.ID, category.name, COUNT(purchase.delivered) AS not_delivered
-        FROM category
-        INNER JOIN product ON category.ID = product.categoryid
-        INNER JOIN purchaseline ON product.ID = purchaseline.productid
-        INNER JOIN purchase ON purchaseline.purchaseid = purchase.ID
-        WHERE purchase.delivered = 1
-        GROUP BY category.ID, category.name;");
+        $sql = $conn->prepare("Select category.ID, category.name from category where category.ID NOT IN (SELECT category.ID
+        FROM purchase
+        INNER JOIN purchaseline ON purchase.ID = purchaseline.purchaseid
+        INNER JOIN product ON purchaseline.productid = product.ID
+        INNER JOIN category ON product.categoryid = category.ID
+        WHERE purchase.delivered = 0)");
         $sql->execute();
-
+    
         $result = $sql->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         die("Fout bij verbinden met de database: " . $e->getMessage());
     }
+
     ?>
 
 <table>
