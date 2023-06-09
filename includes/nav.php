@@ -48,7 +48,6 @@
                             </div>
                             <div class="navDropdown">
                                 <p>Wijzigen</p>
-                                <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
                                 <a href="./product_wijzigen.php">Product wijzigen</a>
                                 <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
                                 <a href="./bestelling_wijzigen.php">Bestellingen wijzigen</a>
@@ -57,6 +56,7 @@
                                 <p>Verwijderen</p>
                                 <a href="./product_verwijderen.php">Product verwijderen</a>
                                 <a href="./klant_verwijderen.php">Klant verwijderen</a>
+                                <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
                             </div>
                             <div class="navDropdown">
                                 <p>Overzichten</p>
