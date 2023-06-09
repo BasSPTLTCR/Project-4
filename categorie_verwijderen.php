@@ -49,7 +49,8 @@
                 echo "Categorie verwijderen geannuleerd.";
             }
         }
-
+    }
+    
     try {
         $sql = $conn->prepare("SELECT category.ID, category.name, COUNT(purchase.delivered) AS not_delivered
             FROM category
