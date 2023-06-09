@@ -130,6 +130,11 @@
             <span></span>
             <label>Verify Password</label>
         </div>
+        <div class="txt_field">
+            <input type="telephone" name="telephone" required>
+            <span></span>
+            <label>Telephone</label>
+        </div>
         <div class="txt_container">
             <div class="txt_field1">
                 <input type="text" name="address" required>

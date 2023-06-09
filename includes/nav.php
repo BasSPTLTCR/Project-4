@@ -1,4 +1,3 @@
-
 <nav class="navmain">
     <ul>
         <li class="navlist">
@@ -32,35 +31,47 @@
             ini_set('display_errors', 0);  // Do not display errors
             session_start();
             if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
-                
+
             ?>
                 <div class="dropdown">
                     <button class="dropbtn">Admin</button>
                     <div class="dropdown-content dropdown-content1">
-                        <div>
-                            <a href="./old-new-password.php">Change password</a>
-                            <a href="#">Klant toevoegen</a>
-                            <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
-                            <a href="./frm-productadding.php">Product toevoegen</a>
-                            <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
-                            <a href="./landen_toevoegen.php">Land toevoegen</a>
-                            <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
-                            <a href="./product_wijzigen.php">Product wijzigen</a>
-                            <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
-                            <a href="./bestelling_wijzigen.php">Bestellingen wijzigen</a>
-                            <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
-                            <a href="./product_verwijderen.php">Product verwijderen</a>
-                            <a href="./klant_verwijderen.php">Klant verwijderen</a>
-                            <a href="#">Lev per land</a>
-                            <a href="./show_catperproduct.php">Prod per cat</a>
-                            <a href="./show_aankoopperklant.php">Aankoop per klant</a>
-                            <a href="#">Regels per aankoop</a>
-                            <a href="#">Aankoop per prod</a>
-                            <a href="#">Prod prijs -lev</a>
-                            <a href="#">Prod prijs - cat</a>
-                            <a href="#">Tot prijs - aankoop</a>
-                            <a href="#">Bas zijn rare muteer dingen</a>
-                            <a href="#">Bas zijn rare muteer dingen</a>
+                        <div class="navDropdownContainer">
+                            <div class="navDropdown">
+                                <p>Toevoegen</p>
+                                <a href="#">Klant toevoegen</a>
+                                <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
+                                <a href="./frm-productadding.php">Product toevoegen</a>
+                                <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
+                                <a href="./landen_toevoegen.php">Land toevoegen</a>
+                                <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
+                            </div>
+                            <div class="navDropdown">
+                                <p>Wijzigen</p>
+                                <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
+                                <a href="./product_wijzigen.php">Product wijzigen</a>
+                                <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
+                                <a href="./bestelling_wijzigen.php">Bestellingen wijzigen</a>
+                            </div>
+                            <div class="navDropdown">
+                                <p>Verwijderen</p>
+                                <a href="./product_verwijderen.php">Product verwijderen</a>
+                                <a href="./klant_verwijderen.php">Klant verwijderen</a>
+                            </div>
+                            <div class="navDropdown">
+                                <p>Overzichten</p>
+                                <a href="./old-new-password.php">Change password</a>
+                                <a href="#">Lev per land</a>
+                                <a href="./show_catperproduct.php">Prod per cat</a>
+                                <a href="./show_aankoopperklant.php">Aankoop per klant</a>
+                                <a href="#">Regels per aankoop</a>
+                                <a href="#">Aankoop per prod</a>
+                                <a href="#">Prod prijs -lev</a>
+                                <a href="#">Prod prijs - cat</a>
+                                <a href="#">Tot prijs - aankoop</a>
+                                <a href="#">Bas zijn rare muteer dingen</a>
+                                <a href="#">Bas zijn rare muteer dingen</a>
+                            </div>
                         </div>
                     </div>
                 </div>

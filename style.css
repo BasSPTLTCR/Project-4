@@ -461,3 +461,13 @@ form .txt_field1 {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.navDropdownContainer {
+  display: flex;
+}
+
+.navDropdown p{
+  color: lightblue;
+  padding: 1rem;
+  width: 10vw;
+}
