@@ -38,7 +38,7 @@
                     <button class="dropbtn">Admin</button>
                     <div class="dropdown-content dropdown-content1">
                         <div>
-                            <a href="./password-change.php">Change password</a>
+                            <a href="./old-new-password.php">Change password</a>
                             <a href="#">Klant toevoegen</a>
                             <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
                             <a href="./frm-productadding.php">Product toevoegen</a>
@@ -47,7 +47,10 @@
                             <a href="./beheerder_toevoegen.php">Beheerder toevoegen</a>
                             <a href="./product_wijzigen.php">Product wijzigen</a>
                             <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
+                            <a href="./bestelling_wijzigen.php">Bestellingen wijzigen</a>
                             <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
+                            <a href="./product_verwijderen.php">Product verwijderen</a>
+                            <a href="./klant_verwijderen.php">Klant verwijderen</a>
                             <a href="#">Lev per land</a>
                             <a href="./show_catperproduct.php">Prod per cat</a>
                             <a href="./show_aankoopperklant.php">Aankoop per klant</a>
@@ -73,7 +76,6 @@
                         <a href="#">Klacht site</a>
                         <a href="#">Klacht medewerker</a>
                         <a href="#">Compliment medewerker</a>
-                        <a href="./old-new-password.php">password</a>
                     </div>
                 </div>
             <?php
