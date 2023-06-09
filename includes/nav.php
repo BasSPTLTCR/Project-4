@@ -72,6 +72,7 @@
                         <a href="#">Klacht site</a>
                         <a href="#">Klacht medewerker</a>
                         <a href="#">Compliment medewerker</a>
+                        <a href="./old-new-password.php">password</a>
                     </div>
                 </div>
             <?php

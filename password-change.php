@@ -20,7 +20,7 @@
         }
 
         require_once("db-connection.php");
-        include "./includes/nav.html";
+        include "./includes/nav.php";
         ?>
     </header>
 <main>
@@ -85,17 +85,17 @@
                     unset($_SESSION["sklant_id"]);
                     $message = "Successfully changed password";
                     $url = "Login.php" . urlencode($message);
-                    echo '<script>window.location.replace("Login.php")</script>';
+                    echo '<script>window.location.replace("index.php")</script>';
                     exit;
                     // if the new password isnt right with the new pass check it ill redirect back
                 } else {
                     echo "nieuwe wachtwoorden zijn niet gelijk ";
-                    echo '<script>setTimeout(function() { window.location.replace("password.php") }, 2000)</script>';
+                    echo '<script>setTimeout(function() { window.location.replace("old-new-password.php") }, 2000)</script>';
                 }
                 // if the password it self is wrong it will redirect you back
             } else {
                 echo 'verkeerd wachtwoord';
-                echo '<script>setTimeout(function() { window.location.replace("password.php") }, 2000)</script>';
+                echo '<script>setTimeout(function() { window.location.replace("old-new-password.php") }, 2000)</script>';
             }
         }
         // iif confirm is pressed it will activate the change pass  functionn

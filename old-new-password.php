@@ -19,7 +19,7 @@
             exit();
         }
      require_once("db-connection.php");
-        include "./includes/nav.html";
+        include "./includes/nav.php";
         ?>
     </header>
 <main>
