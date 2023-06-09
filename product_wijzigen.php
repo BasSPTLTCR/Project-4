@@ -26,6 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Update each row individually
+        $changesMade = false; // Flag to track if any changes were made
+
         foreach ($_POST['ID'] as $index => $id) {
             $productname = $_POST['productname'][$index];
             $ingredients = $_POST['ingredients'][$index];
@@ -39,11 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Check if any rows were affected by the update
             if ($stmt->rowCount() > 0) {
-                echo "Changes have been saved.";
+                $changesMade = true;
             }
         }
 
-        echo "<br><br>"; // Add line breaks for spacing
+        if ($changesMade) {
+            echo "Changes have been saved.<br><br>";
+        }
 
     } catch (PDOException $e) {
         echo "Connection failed: " . $e->getMessage();
@@ -87,6 +91,7 @@ try {
         return confirm("Are you sure you want to save the changes?");
     }
 </script>
+
 
 
 

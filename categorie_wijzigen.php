@@ -25,16 +25,23 @@
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Update each row individually
+            $changesMade = false; // Flag to track if any changes were made
+
             foreach ($_POST['ID'] as $index => $id) {
                 $name = $_POST['name'][$index];
 
                 $stmt = $pdo->prepare('UPDATE category SET name = ? WHERE ID = ?');
                 $stmt->execute([$name, $id]);
+
+                // Check if any rows were affected by the update
+                if ($stmt->rowCount() > 0) {
+                    $changesMade = true;
+                }
             }
 
-            // Redirect to avoid resubmission on page refresh
-            header('Location: ' . $_SERVER['REQUEST_URI']);
-            exit();
+            if ($changesMade) {
+                echo "Changes have been saved.<br><br>";
+            }
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }
@@ -72,6 +79,9 @@
             return confirm("Are you sure you want to save the changes?");
         }
     </script>
+
+
+
 
 
 </body>
