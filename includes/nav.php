@@ -49,28 +49,33 @@
                             <div class="navDropdown">
                                 <p>Wijzigen</p>
                                 <a href="./product_wijzigen.php">Product wijzigen</a>
+                                <a href="./product_actief.php">Product activiteit wijzigen</a>
+                                <a href="./edit_supplier.php">Leverancier wijzigen</a>
                                 <a href="./categorie_wijzigen.php">Categorie wijzigen</a>
                                 <a href="./bestelling_wijzigen.php">Bestellingen wijzigen</a>
                             </div>
                             <div class="navDropdown">
                                 <p>Verwijderen</p>
                                 <a href="./product_verwijderen.php">Product verwijderen</a>
+                                <a href="./show_delete_country.php">Land verwijderen</a>
                                 <a href="./klant_verwijderen.php">Klant verwijderen</a>
                                 <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
+                                <a href="./beheer_verwijderen.php">Beheer verwijderen</a>
+                                <a href="./categorie_verwijderen.php">Categorie verwijderen</a>
                             </div>
                             <div class="navDropdown">
                                 <p>Overzichten</p>
+                                <a href="./klanten.php">Klanten</a>
                                 <a href="./old-new-password.php">Change password</a>
                                 <a href="#">Lev per land</a>
                                 <a href="./show_catperproduct.php">Prod per cat</a>
                                 <a href="./show_aankoopperklant.php">Aankoop per klant</a>
+                                <a href="./show_orders.php">Bestellingen</a>
                                 <a href="#">Regels per aankoop</a>
                                 <a href="#">Aankoop per prod</a>
                                 <a href="#">Prod prijs -lev</a>
                                 <a href="#">Prod prijs - cat</a>
                                 <a href="#">Tot prijs - aankoop</a>
-                                <a href="#">Bas zijn rare muteer dingen</a>
-                                <a href="#">Bas zijn rare muteer dingen</a>
                             </div>
                         </div>
                     </div>
