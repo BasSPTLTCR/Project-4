@@ -39,7 +39,6 @@
                         <div class="navDropdownContainer">
                             <div class="navDropdown">
                                 <p>Toevoegen</p>
-                                <a href="#">Klant toevoegen</a>
                                 <a href="./leverancier_toevoegen.php">Leverancier toevoegen</a>
                                 <a href="./frm-productadding.php">Product toevoegen</a>
                                 <a href="./categorie_toevoegen.php">Categorie toevoegen</a>
@@ -57,6 +56,8 @@
                                 <a href="./product_verwijderen.php">Product verwijderen</a>
                                 <a href="./klant_verwijderen.php">Klant verwijderen</a>
                                 <a href="./leverancier_verwijderen.php">Leverancier verwijderen</a>
+                                <a href="./show_delete_country.php">Land verwijderen</a>
+                                <a href="#">bestelling verwijderen</a>
                             </div>
                             <div class="navDropdown">
                                 <p>Overzichten</p>
@@ -64,6 +65,9 @@
                                 <a href="#">Lev per land</a>
                                 <a href="./show_catperproduct.php">Prod per cat</a>
                                 <a href="./show_aankoopperklant.php">Aankoop per klant</a>
+                                <a href="./overzichtbeheerder.php">overzicht beheerders</a>
+                                <a href="./overzichtproducten.php">overzicht producten</a>
+                                <a href="./overzichtcategorie.php">overzicht categorie</a>
                                 <a href="#">Regels per aankoop</a>
                                 <a href="#">Aankoop per prod</a>
                                 <a href="#">Prod prijs -lev</a>
