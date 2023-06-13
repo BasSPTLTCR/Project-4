@@ -70,6 +70,9 @@
                                 <a href="./show_catperproduct.php">Prod per cat</a>
                                 <a href="./show_aankoopperklant.php">Aankoop per klant</a>
                                 <a href="./show_orders.php">Bestellingen</a>
+                                <a href="./overzichtbeheerder.php">overzicht beheerders</a>
+                                <a href="./overzichtcategorie.php">overzicht categorie</a>
+                                <a href="./overzichtproducten.php">overzicht producten</a>
                                 <a href="#">Regels per aankoop</a>
                                 <a href="#">Aankoop per prod</a>
                                 <a href="#">Prod prijs -lev</a>
