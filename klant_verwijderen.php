@@ -11,10 +11,7 @@
 <body>
     <?php
     include_once "./includes/nav.php";
-    $host = 'localhost';
-    $dbname = 'befs';
-    $username = 'root';
-    $password = '';
+    require 'db-connection.php';
 
 if (isset($_GET['delete'])) {
     $customerId = $_GET['delete'];

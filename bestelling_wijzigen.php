@@ -12,11 +12,7 @@
 <body>
 <?php
 include_once "./includes/nav.php";
-
-$host = 'localhost';
-$dbname = 'befs';
-$username = 'root';
-$password = '';
+require 'db-connection.php';
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

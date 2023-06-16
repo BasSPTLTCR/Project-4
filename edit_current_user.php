@@ -13,10 +13,7 @@
     <?php
     include_once "./includes/nav.php";
     ini_set('display_errors', 1);
-    $host = 'localhost';
-    $dbname = 'befs';
-    $username = 'root';
-    $password = '';
+    require 'db-connection.php';
 
     try {
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

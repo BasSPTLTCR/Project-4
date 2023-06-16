@@ -12,11 +12,7 @@
 <body>
     <?php
     include_once "./includes/nav.php";
-
-    $host = 'localhost';
-    $dbname = 'befs';
-    $username = 'root';
-    $password = '';
+    require 'db-connection.php';
 
     // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

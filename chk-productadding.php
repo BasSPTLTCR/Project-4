@@ -12,8 +12,7 @@
 <body>
 <?php
     include "./includes/nav.php";
-    ?>
-    <?php
+    require './db-connection.php';
 
 
     function test_input($datatest)
@@ -29,7 +28,6 @@
         echo "<h2>niet juiste mannier</h2>";
         header("Refresh:3; url=frm-productadding.php");
     } else {
-        require './db-connection.php';
         $prodname = test_input($_POST["prodname"]);
         $prodprice = test_input($_POST["prodprice"]);
         $prodcategorie = test_input($_POST["prodcategorie"]);

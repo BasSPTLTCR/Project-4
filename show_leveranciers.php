@@ -22,17 +22,17 @@
         $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $stmt = $pdo->query('SELECT company, adress, zipcode, city, state, countryid FROM supplier');
+        $stmt = $pdo->query('SELECT company, address, zipcode, city, state, countryid FROM supplier');
         $tableData = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // Display the table
         echo "<table>";
-        echo "<tr><th>Company</th><th>Adress</th><th>Zipcode</th><th>City</th><th>State</th><th>Country ID</th></tr>";
+        echo "<tr><th>Company</th><th>Address</th><th>Zipcode</th><th>City</th><th>State</th><th>Country ID</th></tr>";
 
         foreach ($tableData as $row) {
             echo "<tr>";
             echo "<td>" . $row['company'] . "</td>";
-            echo "<td>" . $row['adress'] . "</td>";
+            echo "<td>" . $row['address'] . "</td>";
             echo "<td>" . $row['zipcode'] . "</td>";
             echo "<td>" . $row['city'] . "</td>";
             echo "<td>" . $row['state'] . "</td>";
